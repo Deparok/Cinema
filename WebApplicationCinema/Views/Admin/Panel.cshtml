@@ -1,0 +1,772 @@
+@model PanelViewModel
+@{
+    string mainPage = "/";
+    ViewData["title"] = Model.Title;
+    string mountainImage = "/images/logo_mountain.png";
+    string moneyImage = "/images/money.png";
+}
+  <body data-path-to-root="../" data-include-products="false" class="u-body u-xl-mode" data-lang="ru"><header class="u-border-2 u-border-grey-75 u-clearfix u-header u-header" id="header"><div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1"><span class="u-file-icon u-icon u-icon-1" data-href="@mainPage" data-page-id="115758581" title="start"><img src="@mountainImage" alt=""></span>
+        <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" role="navigation">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" tabindex="-1" aria-label="Open menu" aria-controls="913b">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul role="menubar" class="u-nav u-unstyled u-nav-1"><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="@mainPage" style="padding: 10px 20px;">Главная</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="@Model.Login_outPage" style="padding: 10px 20px;">@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="@Model.Profile_panelPage" style="padding: 10px 20px;">@Model.Profile_panelText</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse" id="913b" role="region" aria-label="Menu panel">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close" tabindex="-1" aria-label="Close menu"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2" role="menubar"><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href="@mainPage">Главная</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href="@Model.Login_outPage">@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href="@Model.Profile_panelPage">@Model.Profile_panelText</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav>
+      </div></header>
+    <section class="u-clearfix u-section-1" id="block-2">
+      <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+        <div class="u-expanded-width u-tabs u-tabs-1">
+          <ul class="u-tab-list u-unstyled" role="tablist"><li class="u-tab-item" role="presentation"><a class="active u-active-palette-1-light-3 u-button-style u-hover-palette-2-light-3 u-tab-link u-text-active-palette-1-base u-text-body-color u-text-hover-palette-2-base u-tab-link-1" id="link-tab-407e" href="#tab-407e" role="tab" aria-controls="tab-407e" aria-selected="true">Залы</a>
+</li><li class="u-tab-item" role="presentation"><a class="u-active-palette-1-light-3 u-button-style u-hover-palette-2-light-3 u-tab-link u-text-active-palette-1-base u-text-body-color u-text-hover-palette-2-base u-tab-link-2" id="link-tab-0f75" href="#tab-0f75" role="tab" aria-controls="tab-0f75" aria-selected="false">Фильмы</a>
+</li><li class="u-tab-item" role="presentation"><a class="u-active-palette-1-light-3 u-button-style u-hover-palette-2-light-3 u-tab-link u-text-active-palette-1-base u-text-body-color u-text-hover-palette-2-base u-tab-link-3" id="link-tab-c17c" href="#tab-c17c" role="tab" aria-controls="tab-c17c" aria-selected="false">Сеансы</a>
+</li><li class="u-tab-item" role="presentation"><a class="u-active-palette-1-light-3 u-button-style u-hover-palette-2-light-3 u-tab-link u-text-active-palette-1-base u-text-body-color u-text-hover-palette-2-base u-tab-link-4" id="link-tab-a384" href="#tab-a384" role="tab" aria-controls="tab-a384" aria-selected="false">Удаление</a>
+</li></ul>
+          <div class="u-tab-content">
+            <div class="u-container-style u-tab-active u-tab-pane" id="tab-407e" role="tabpanel" aria-labelledby="link-tab-407e">
+              <div class="u-container-layout u-container-layout-1">
+                <p class="u-large-text u-text u-text-default u-text-variant u-text-1">Добавление зала </p>
+                <div class="u-form u-form-1">
+                  <form action="/addHall" method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="chall_form" style="padding: 10px;" method="post">
+                    <div class="u-form-group u-form-name">
+                      <label for="name-008c" class="u-label">Название</label>
+                      <input type="text" placeholder="Введите название зала" id="name-008c" name="chall_name" class="u-input u-input-rectangle u-input-1" required="" maxlength="50">
+                    </div>
+                    <div class="u-form-group u-form-number u-form-number-layout-number u-form-group-2">
+                      <label for="number-5b0e" class="u-label">Вместительность</label>
+                      <div class="u-input-row" data-value="0">
+                        <input value="0" min="0" max="350" step="1" type="number" placeholder="" id="number-5b0e" name="chall_capacity" class="u-input u-input-rectangle u-text-black u-input-2">
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-number u-form-number-layout-number u-form-group-3">
+                      <label for="number-7c9c" class="u-label">Количество рядов</label>
+                      <div class="u-input-row" data-value="0">
+                        <input value="0" min="0" max="18" step="1" type="number" placeholder="" id="number-7c9c" name="chall_rows" class="u-input u-input-rectangle u-text-black u-input-3">
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-radiobutton u-form-group-4">
+                      <label class="u-label">В какую часть зала переносить оставшиеся места</label>
+                      <div class="u-form-radio-button-wrapper">
+                        <div class="u-input-row">
+                          <input id="field-d697" type="radio" name="chall_transfer" value="front" class="u-field-input" checked="checked" data-calc="front" required="required">
+                          <label class="u-field-label" for="field-d697">В переднюю</label>
+                        </div>
+                        <div class="u-input-row">
+                          <input id="field-c51f" type="radio" name="chall_transfer" value="back" class="u-field-input" data-calc="back" required="required">
+                          <label class="u-field-label" for="field-c51f">В заднюю</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-textarea u-form-group-5">
+                      <label for="textarea-03fe" class="u-label">Описание</label>
+                      <textarea rows="4" cols="50" id="textarea-03fe" name="chall_description" class="u-input u-input-rectangle" placeholder="Введите описание к залу" maxlength="255"></textarea>
+                    </div>
+                    <div class="u-align-left u-form-group u-form-submit">
+                      <a href="#" class="u-btn u-btn-submit u-button-style u-btn-1">Добавить зал</a>
+                      <input type="submit" value="submit" class="u-form-control-hidden">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-tab-pane" id="tab-0f75" role="tabpanel" aria-labelledby="link-tab-0f75">
+              <div class="u-container-layout u-container-layout-2">
+                <p class="u-large-text u-text u-text-default u-text-variant u-text-2">Добавление фильма </p>
+                <div class="u-form u-form-2">
+                  <form action="/addMovie" method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="movie_form" style="padding: 10px;" method="post">
+                    <div class="u-form-group u-form-name">
+                      <label for="name-008c" class="u-label">Название</label>
+                      <input type="text" placeholder="Введите название фильма" id="name-008c" name="movie_name" class="u-input u-input-rectangle" required="" maxlength="50">
+                    </div>
+                    <div class="u-form-group u-form-number u-form-number-layout-number u-form-group-8">
+                      <label for="number-8321" class="u-label">Продолжительность (мин.)</label>
+                      <div class="u-input-row" data-value="0">
+                        <input value="0" min="0" max="750" step="1" type="number" placeholder="" id="number-8321" name="movie_runtime" class="u-input u-input-rectangle u-text-black">
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-number u-form-number-layout-number u-form-group-9">
+                      <label for="number-158b" class="u-label">Базовая цена билета</label>
+                      <div class="u-input-row" data-value="0">
+                        <input value="0" min="0" max="1000" step="1" type="number" placeholder="" id="number-158b" name="movie_price" class="u-input u-input-rectangle u-text-black">
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-number u-form-number-layout-number u-form-group-10">
+                      <label for="number-a8a2" class="u-label">Год выпуска</label>
+                      <div class="u-input-row" data-value="0">
+                        <input value="0" min="1800" max="2070" step="1" type="number" placeholder="" id="number-a8a2" name="movie_year" class="u-input u-input-rectangle u-text-black">
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-group-11">
+                      <label for="text-1845" class="u-label">Режиссер </label>
+                      <input type="text" placeholder="Введите ФИО режиссера" id="text-1845" name="movie_director" class="u-input u-input-rectangle" required="required" maxlength="50">
+                    </div>
+                    <div class="u-form-date u-form-group u-form-group-12">
+                      <label for="date-4af8" class="u-label">В прокате с</label>
+                      <input type="text" placeholder="ДД.ММ.ГГГГ" id="date-4af8" name="movie_runtime_start" class="u-input u-input-rectangle" required="" data-date-format="dd.mm.yyyy">
+                    </div>
+                    <div class="u-form-date u-form-group u-form-group-13">
+                      <label for="date-9cb4" class="u-label">В прокате до</label>
+                      <input type="text" placeholder="ДД.ММ.ГГГГ" id="date-9cb4" name="movie_runtime_end" class="u-input u-input-rectangle" required="" data-date-format="dd.mm.yyyy">
+                    </div>
+                    <div class="u-form-group u-form-group-14">
+                      <label for="text-3846" class="u-label">Постер</label>
+                      <input type="file" accept=".png, .jpg, .jpeg" placeholder="" id="text-3846" name="movie_poster" class="u-input u-input-rectangle" required="required">
+                    </div>
+                    <div class="u-form-group u-form-group-15">
+                      <label for="text-865d" class="u-label">Рейтинг</label>
+                      <input type="text" placeholder="Введите возрастной рейтинг" id="text-865d" name="movie_rating" class="u-input u-input-rectangle" maxlength="50">
+                    </div>
+                    <div class="u-form-group u-form-textarea u-form-group-16">
+                      <label for="textarea-3df9" class="u-label">Описание</label>
+                      <textarea rows="4" cols="50" id="textarea-3df9" name="movie_description" class="u-input u-input-rectangle" maxlength="2000" placeholder="Введите описание к фильму"></textarea>
+                    </div>
+                    <div class="u-align-left u-form-group u-form-submit">
+                      <a href="#" class="u-btn u-btn-submit u-button-style u-btn-2">Добавить фильм</a>
+                      <input type="submit" value="submit" class="u-form-control-hidden">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-tab-pane" id="tab-c17c" role="tabpanel" aria-labelledby="link-tab-c17c">
+              <div class="u-container-layout u-container-layout-3">
+                <p class="u-large-text u-text u-text-default u-text-variant u-text-3">Добавление сеанса </p>
+                <div class="u-form u-form-3">
+                  <form action="/addSession" method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="session_form" style="padding: 10px;" method="post">
+                    <div class="u-form-date u-form-group u-form-group-17">
+                      <label for="date-0772" class="u-label">Дата начала сеанса</label>
+                      <input type="text" placeholder="ДД.ММ.ГГГГ" id="date-0772" name="session_date" class="u-input u-input-rectangle" required="" data-date-format="dd.mm.yyyy">
+                    </div>
+                    <div class="u-form-group u-form-select u-form-group-18">
+                      <label for="select-a6aa" class="u-label">Зал</label>
+                      <div class="u-form-select-wrapper">
+                        <select id="select-a6aa" name="session_halls" class="u-input u-input-rectangle" required="required"></select>
+                        <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-select u-form-group-19">
+                      <label for="select-b803" class="u-label">Фильм</label>
+                      <div class="u-form-select-wrapper">
+                        <select id="select-b803" name="session_movies" class="u-input u-input-rectangle" required="required"></select>
+                        <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                      </div>
+                    </div>
+                    <div class="u-form-group u-form-group-20">
+                      <label for="text-755d" class="u-label">Свободное время</label>
+                      <input type="text" id="text-755d" name="session_freetime" class="u-input u-input-rectangle">
+                    </div>
+                    <div class="u-form-group u-form-time u-form-group-21">
+                      <label for="time-c8be" class="u-label">Время начала сенса</label>
+                      <input type="time" id="time-c8be" name="session_start" class="u-input u-input-rectangle">
+                    </div>
+                    <div class="u-form-group u-form-time u-form-group-22">
+                      <label for="time-0dd6" class="u-label">Время окончания сеанса</label>
+                      <input type="time" id="time-0dd6" name="session_end" class="u-input u-input-rectangle" data-time-value="">
+                    </div>
+                    <div class="u-form-group u-form-number u-form-number-layout-number u-form-group-23">
+                      <label for="number-f7e5" class="u-label">Наценка (руб)</label>
+                      <div class="u-input-row" data-value="0">
+                        <input value="0" min="0" step="1" type="number" placeholder="" id="number-f7e5" name="session_extracharge" class="u-input u-input-rectangle u-number u-text-black" max="1000">
+                      </div>
+                    </div>
+                    <div class="u-align-left u-form-group u-form-submit">
+                      <a href="#" class="u-btn u-btn-submit u-button-style u-btn-3">Добавить сеанс</a>
+                      <input type="submit" value="submit" class="u-form-control-hidden">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-tab-pane" id="tab-a384" role="tabpanel" aria-labelledby="link-tab-a384">
+              <div class="u-container-layout u-container-layout-4">
+                <div class="u-clearfix u-custom-html u-expanded-width u-custom-html-1">
+                  <dialog id="modal"></dialog>
+                </div>
+                <div class="custom-expanded u-accordion u-expanded-width u-accordion-1" role="tablist">
+                  <div class="u-accordion-item">
+                    <a class="active u-accordion-link u-button-style" id="link-1baf" aria-controls="1baf" aria-selected="true" role="tab"><span class="u-accordion-link-text">Залы</span><span class="u-accordion-link-icon u-icon u-text-grey-40 u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style=""><use xlink:href="#svg-e6e7"></use></svg><svg class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-e6e7"><path d="M8,10.7L1.6,5.3c-0.4-0.4-1-0.4-1.3,0c-0.4,0.4-0.4,0.9,0,1.3l7.2,6.1c0.1,0.1,0.4,0.2,0.6,0.2s0.4-0.1,0.6-0.2l7.1-6
+	c0.4-0.4,0.4-0.9,0-1.3c-0.4-0.4-1-0.4-1.3,0L8,10.7z"></path></svg></span>
+                    </a>
+                    <div class="u-accordion-active u-accordion-pane u-container-style u-accordion-pane-1" id="1baf" aria-labelledby="link-1baf" role="tabpanel">
+                      <div class="u-container-layout u-container-layout-5">
+                        <div class="u-expanded-width u-list u-list-1">
+                          <div class="u-repeater u-repeater-1">
+                              @{
+                                foreach (Hall hall in Model.Halls )
+                                {
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                      <div class="u-container-layout u-similar-container u-container-layout-6">
+                                        <p class="u-align-left u-text u-text-4"> @hall.Description<br>
+                                        </p>
+                                        @*<p class="u-text u-text-default u-text-5">124 чел.</p>*@
+                                        <input name="hall_id" type="text" hidden="hidden" value="@hall.ID"/>
+                                        <h5 class="u-text u-text-default u-text-6">@hall.Name </h5>
+                                        <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4"><span class="u-icon u-icon-2"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		                                    S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		                                    l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		                                    C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+                                            </g></svg></span>
+                                        </a>
+                                      </div>
+                                    </div>
+                                }
+                              }
+@*                             <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-6">
+                                <p class="u-align-left u-text u-text-4"> Пример текста. Кликните, чтобы выбрать элемент ага.<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-5">124 чел.</p>
+                                <h5 class="u-text u-text-default u-text-6">ЗАЛ </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-4"><span class="u-icon u-icon-2"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-7">
+                                <p class="u-align-left u-text u-text-7"> Пример текста. Кликните, чтобы выбрать элемент ага.<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-8">124 чел.</p>
+                                <h5 class="u-text u-text-default u-text-9">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-5"><span class="u-icon u-icon-3"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-8">
+                                <p class="u-align-left u-text u-text-10"> Пример текста. Кликните, чтобы выбрать элемент ага.<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-11">124 чел.</p>
+                                <h5 class="u-text u-text-default u-text-12">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-6"><span class="u-icon u-icon-4"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-9">
+                                <p class="u-align-left u-text u-text-13"> Пример текста. Кликните, чтобы выбрать элемент ага.<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-14">124 чел.</p>
+                                <h5 class="u-text u-text-default u-text-15">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-7"><span class="u-icon u-icon-5"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-10">
+                                <p class="u-align-left u-text u-text-16"> Пример текста. Кликните, чтобы выбрать элемент ага.<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-17">124 чел.</p>
+                                <h5 class="u-text u-text-default u-text-18">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-8"><span class="u-icon u-icon-6"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div> *@
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="u-accordion-item">
+                    <a class="u-accordion-link u-button-style" id="link-500f" aria-controls="500f" aria-selected="false" role="tab"><span class="u-accordion-link-text">Фильмы</span><span class="u-accordion-link-icon u-icon u-text-grey-40 u-icon-7"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style=""><use xlink:href="#svg-add0"></use></svg><svg class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-add0"><path d="M8,10.7L1.6,5.3c-0.4-0.4-1-0.4-1.3,0c-0.4,0.4-0.4,0.9,0,1.3l7.2,6.1c0.1,0.1,0.4,0.2,0.6,0.2s0.4-0.1,0.6-0.2l7.1-6
+	c0.4-0.4,0.4-0.9,0-1.3c-0.4-0.4-1-0.4-1.3,0L8,10.7z"></path></svg></span>
+                    </a>
+                    <div class="u-accordion-pane u-container-style u-accordion-pane-2" id="500f" aria-labelledby="link-500f" role="tabpanel">
+                      <div class="u-container-layout u-container-layout-11">
+                        <div class="u-expanded-width u-list u-list-2">
+                          <div class="u-repeater u-repeater-2">
+                              @{
+                                  foreach (Movie movie in Model.Movies)
+                                  {
+                                        <div class="u-container-style u-list-item u-repeater-item">
+                                          <div class="u-container-layout u-similar-container u-container-layout-12">
+                                            <div class="u-clearfix u-group-elements u-group-elements-1"><span class="u-file-icon u-icon u-icon-8"><img src="@moneyImage" alt=""></span>
+                                              <p class="u-text u-text-default u-text-19">@movie.Price</p>
+                                            </div>
+                                            <input name="movie_id" type="text" hidden="hidden" value="@movie.ID"/>
+                                            <p class="u-align-left u-text u-text-20"> @movie.Description<br>
+                                            </p>
+                                            <p class="u-text u-text-default u-text-21">@movie.Runtime мин.</p>
+                                            <h5 class="u-text u-text-default u-text-22">@movie.Name </h5>
+                                            <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-9"><span class="u-icon u-icon-9"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		                                        S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		                                        l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		                                        C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+                                                </g></svg></span>
+                                            </a>
+                                          </div>
+                                        </div>
+                                  }
+                              }
+@*                             <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-12">
+                                <div class="u-clearfix u-group-elements u-group-elements-1"><span class="u-file-icon u-icon u-icon-8"><img src="../images/3188788.png" alt=""></span>
+                                  <p class="u-text u-text-default u-text-19">1234</p>
+                                </div>
+                                <p class="u-align-left u-text u-text-20"> Пример текста Кликните, чтобы выбрать элемент ага<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-21">124 мин.</p>
+                                <h5 class="u-text u-text-default u-text-22">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-9"><span class="u-icon u-icon-9"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-13">
+                                <div class="u-clearfix u-group-elements u-group-elements-2"><span class="u-file-icon u-icon u-icon-10"><img src="../images/3188788.png" alt=""></span>
+                                  <p class="u-text u-text-default u-text-23">1234</p>
+                                </div>
+                                <p class="u-align-left u-text u-text-default u-text-24"> Пример текста. Кликните, чтобы выбрать элемент ага<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-25">124 мин.</p>
+                                <h5 class="u-text u-text-default u-text-26">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-10"><span class="u-icon u-icon-11"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-14">
+                                <div class="u-clearfix u-group-elements u-group-elements-3"><span class="u-file-icon u-icon u-icon-12"><img src="../images/3188788.png" alt=""></span>
+                                  <p class="u-text u-text-default u-text-27">1234</p>
+                                </div>
+                                <p class="u-align-left u-text u-text-default u-text-28"> Пример текста. Кликните, чтобы выбрать элемент ага<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-29">124 мин.</p>
+                                <h5 class="u-text u-text-default u-text-30">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-11"><span class="u-icon u-icon-13"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-15">
+                                <div class="u-clearfix u-group-elements u-group-elements-4"><span class="u-file-icon u-icon u-icon-14"><img src="../images/3188788.png" alt=""></span>
+                                  <p class="u-text u-text-default u-text-31">1234</p>
+                                </div>
+                                <p class="u-align-left u-text u-text-default u-text-32"> Пример текста. Кликните, чтобы выбрать элемент ага<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-33">124 мин.</p>
+                                <h5 class="u-text u-text-default u-text-34">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-12"><span class="u-icon u-icon-15"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-16">
+                                <div class="u-clearfix u-group-elements u-group-elements-5"><span class="u-file-icon u-icon u-icon-16"><img src="../images/3188788.png" alt=""></span>
+                                  <p class="u-text u-text-default u-text-35">1234</p>
+                                </div>
+                                <p class="u-align-left u-text u-text-36"> Пример текста. Кликните, чтобы выбрать элемент ага<br>
+                                </p>
+                                <p class="u-text u-text-default u-text-37">124 мин.</p>
+                                <h5 class="u-text u-text-default u-text-38">Новичок </h5>
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-13"><span class="u-icon u-icon-17"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                              </div>
+                            </div> *@
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="u-accordion-item">
+                    <a class="u-accordion-link u-button-style" id="link-4130" aria-controls="4130" aria-selected="false" role="tab"><span class="u-accordion-link-text">Сеансы</span><span class="u-accordion-link-icon u-icon u-text-grey-40 u-icon-18"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style=""><use xlink:href="#svg-c83e"></use></svg><svg class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-c83e"><path d="M8,10.7L1.6,5.3c-0.4-0.4-1-0.4-1.3,0c-0.4,0.4-0.4,0.9,0,1.3l7.2,6.1c0.1,0.1,0.4,0.2,0.6,0.2s0.4-0.1,0.6-0.2l7.1-6
+	c0.4-0.4,0.4-0.9,0-1.3c-0.4-0.4-1-0.4-1.3,0L8,10.7z"></path></svg></span>
+                    </a>
+                    <div class="u-accordion-pane u-container-style u-accordion-pane-3" id="4130" aria-labelledby="link-4130" role="tabpanel">
+                      <div class="u-container-layout u-container-layout-17">
+                        <div class="u-expanded-width u-list u-list-3">
+                          <div class="u-repeater u-repeater-3">
+                              @{
+                                  foreach((Session session, Hall hall, Movie movie) in Model.SessionHallMovie)
+                                  {
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                      <div class="u-container-layout u-similar-container u-container-layout-18">
+                                        <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-14"><span class="u-icon u-icon-19"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		                                    S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		                                    l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		                                    C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+                                            </g></svg></span>
+                                        </a>
+                                        <input name="session_id" type="text" hidden="hidden" value="@session.ID"/>
+                                        <p class="u-text u-text-default u-text-39">@session.Date.ToShortDateString() </p>
+                                        <p class="u-align-left u-text u-text-40">Начало: @session.StartTime.ToShortTimeString()<br>
+                                        </p>
+                                        <p class="u-align-left u-text u-text-41">Конец: @session.EndTime.ToShortTimeString()<br>
+                                        </p>
+                                        <h5 class="u-text u-text-default u-text-42">@hall.Name </h5>
+                                        <h5 class="u-text u-text-default u-text-43">@movie.Name</h5>
+                                      </div>
+                                    </div>
+                                  }
+                              }
+@*                             <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-18">
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-14"><span class="u-icon u-icon-19"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                                <p class="u-text u-text-default u-text-39">29.06.2025 </p>
+                                <p class="u-align-left u-text u-text-40">Начало: 22:22<br>
+                                </p>
+                                <p class="u-align-left u-text u-text-41">Конец: 32:32<br>
+                                </p>
+                                <h5 class="u-text u-text-default u-text-42">Зал </h5>
+                                <h5 class="u-text u-text-default u-text-43">Фильм</h5>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-19">
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-15"><span class="u-icon u-icon-20"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                                <p class="u-text u-text-default u-text-44">29.06.2025 </p>
+                                <p class="u-align-left u-text u-text-45">Начало: 22:22<br>
+                                </p>
+                                <p class="u-align-left u-text u-text-46">Начало: 22:22<br>
+                                </p>
+                                <h5 class="u-text u-text-default u-text-47">Зал </h5>
+                                <h5 class="u-text u-text-default u-text-48">Фильм</h5>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-20">
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-16"><span class="u-icon u-icon-21"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                                <p class="u-text u-text-default u-text-49">29.06.2025 </p>
+                                <p class="u-align-left u-text u-text-50">Начало: 22:22<br>
+                                </p>
+                                <p class="u-align-left u-text u-text-51">Начало: 22:22<br>
+                                </p>
+                                <h5 class="u-text u-text-default u-text-52">Зал </h5>
+                                <h5 class="u-text u-text-default u-text-53">Фильм</h5>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-21">
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-17"><span class="u-icon u-icon-22"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                                <p class="u-text u-text-default u-text-54">29.06.2025 </p>
+                                <p class="u-align-left u-text u-text-55">Начало: 22:22<br>
+                                </p>
+                                <p class="u-align-left u-text u-text-56">Начало: 22:22<br>
+                                </p>
+                                <h5 class="u-text u-text-default u-text-57">Зал </h5>
+                                <h5 class="u-text u-text-default u-text-58">Фильм</h5>
+                              </div>
+                            </div>
+                            <div class="u-container-style u-list-item u-repeater-item">
+                              <div class="u-container-layout u-similar-container u-container-layout-22">
+                                <a href="" class="u-border-2 u-border-palette-1-base u-btn u-btn-round u-button-style u-hover-palette-1-base u-none u-radius u-text-body-color u-text-hover-white u-btn-18"><span class="u-icon u-icon-23"><svg class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26
+		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.252,15.336l-15.369,17.29l-9.259-7.407c-0.43-0.345-1.061-0.274-1.405,0.156c-0.345,0.432-0.275,1.061,0.156,1.406
+		l10,8C22.559,34.928,22.78,35,23,35c0.276,0,0.551-0.114,0.748-0.336l16-18c0.367-0.412,0.33-1.045-0.083-1.411
+		C39.251,14.885,38.62,14.922,38.252,15.336z"></path>
+</g></svg></span>
+                                </a>
+                                <p class="u-text u-text-default u-text-59">29.06.2025 </p>
+                                <p class="u-align-left u-text u-text-60">Начало: 22:22<br>
+                                </p>
+                                <p class="u-align-left u-text u-text-61">Начало: 22:22<br>
+                                </p>
+                                <h5 class="u-text u-text-default u-text-62">Зал </h5>
+                                <h5 class="u-text u-text-default u-text-63">Фильм</h5>
+                              </div>
+                            </div> *@
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a href="" class="u-align-center u-border-none u-btn u-btn-round u-button-style u-palette-2-light-1 u-radius u-text-body-color u-btn-19">Удалить выбранное </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-grey-80 u-footer" id="footer"><div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">© Кинотеатр "Эверест", Сапрыкин Матвей АИБ-23-2 </p>
+      </div></footer>
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Элементы формы
+            const movieSelect = document.getElementById('select-b803');
+            const hallSelect = document.getElementById('select-a6aa');
+            const sessionStartInput = document.querySelector('input[name="session_start"]');
+            const freeTimeInput = document.getElementById('text-755d');
+            const sessionEndInput = document.querySelector('input[name="session_end"]');
+            const sessionForm = document.querySelector('form[name="session_form"]');
+
+            // Загружаем список фильмов с сервера
+            function loadMovies() {
+                const selectedDate = sessionStartInput.value;
+
+                if (!selectedDate) {
+                    freeTimeInput.value = 'Сначала выберите дату и зал';
+                    return;
+                }
+
+                const dateOnly = selectedDate.substring(0, 10);
+
+                fetch(`/giveawayMovies?date=${dateOnly}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Очищаем и заполняем select
+                        movieSelect.innerHTML = '';
+                        // const defaultOption = document.createElement('option');
+                        // defaultOption.value = '';
+                        // defaultOption.textContent = 'Выберите фильм';
+                        // movieSelect.appendChild(defaultOption);
+
+                        data.forEach(movie => {
+                            const option = document.createElement('option');
+                            option.value = movie.id;
+                            option.textContent = `${movie.name} - ${movie.year}`;
+                            movieSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Ошибка загрузки фильмов:', error));
+            }
+
+            // Загружаем список залов с сервера
+            function loadHalls() {
+                const selectedDate = sessionStartInput.value;
+
+                if (!selectedDate) {
+                    freeTimeInput.value = 'Сначала выберите дату и зал';
+                    return;
+                }
+
+                const dateOnly = selectedDate.substring(0, 10);
+
+                fetch(`/giveawayHalls?date=${dateOnly}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Очищаем и заполняем select
+                        hallSelect.innerHTML = '';
+                        // const defaultOption = document.createElement('option');
+                        // defaultOption.value = '';
+                        // defaultOption.textContent = 'Выберите зал';
+                        // hallSelect.appendChild(defaultOption);
+
+                        data.forEach(hall => {
+                            const option = document.createElement('option');
+                            option.value = hall.id;
+                            option.textContent = hall.name;
+                            hallSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Ошибка загрузки залов:', error));
+            }
+
+            // Загружаем свободное время (как в предыдущем коде)
+            function loadFreeTime() {
+                const selectedDate = sessionStartInput.value;
+                const hallId = hallSelect.value;
+
+                if (!selectedDate || !hallId) {
+                    freeTimeInput.value = 'Сначала выберите дату и зал';
+                    return;
+                }
+
+                const dateOnly = selectedDate.substring(0, 10);
+
+                fetch(`/todayFreeTimes?date=${dateOnly}&hall=${hallId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        freeTimeInput.value = data.join(', ') || 'Нет свободного времени';
+                    })
+                    .catch(error => {
+                        console.error('Ошибка загрузки времени:', error);
+                        freeTimeInput.value = 'Ошибка загрузки данных';
+                    });
+            }
+
+            // Запускаем загрузку данных при загрузке страницы
+            
+
+            // Слушаем изменения в выборе зала и даты
+            hallSelect.addEventListener('change', loadFreeTime);
+            sessionStartInput.addEventListener('change', loadFreeTime);
+            // sessionEndInput.addEventListener('change', checkTimeIntervals);
+            sessionForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (sessionEndInput.value && sessionStartInput.value) {
+                    const endTime = new Date(`2000-01-01T${sessionEndInput.value}`);
+                    const startTime = new Date(`2000-01-01T${sessionStartInput.value}`);
+
+                    if (startTime > endTime) {
+                        sessionEndInput.value = "";
+                        alert("Время окончания выбрано неверно");
+                        return;
+                    }
+
+                    const durationMinutes = (end - start) / (1000 * 60)
+
+                    fetch("/giveawayFilm", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: movieSelect.value
+                        })
+                    })
+                    .then(response => {
+                        response.json()
+                        .then(json => {
+                            if (json.time > durationMinutes) {
+                                sessionEndInput.value = "";
+                                alert('Продолжительность фильма больше длительности сеанса');
+                                return;
+                            }
+                        })
+                    });
+                }
+                this.submit();
+            });
+        const selectButtons = document.querySelectorAll('[class*="u-btn-"][class*="u-border-palette-1-base"]');
+        const deleteButton = document.querySelector('.u-btn-19');
+        const selectedItems = new Set();
+
+        selectButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // const this.closest("name['movie_id']")
+                // Находим родительский элемент, который представляет элемент для удаления
+                const itemElement = this.closest('.u-container-layout');
+                if (!itemElement) return;
+
+                // Получаем идентификатор элемента (нужно адаптировать под вашу структуру)
+                const itemId = itemElement.querySelector('h5').textContent.trim();
+
+                if (selectedItems.has(itemId)) {
+                    selectedItems.delete(itemId);
+                    this.classList.remove('u-palette-1-base', 'u-text-hover-white');
+                    this.classList.add('u-text-body-color');
+                } else {
+                    selectedItems.add(itemId);
+                    this.classList.add('u-palette-1-base', 'u-text-hover-white');
+                    this.classList.remove('u-text-body-color');
+                }
+            });
+        });
+
+        // Обработчик для кнопки удаления
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (selectedItems.size === 0) {
+                    alert('Выберите хотя бы один элемент для удаления');
+                    return;
+                }
+
+                // Отправка данных на сервер
+                fetch('/delete', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        items: Array.from(selectedItems)
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Элементы успешно удалены');
+                        // Обновляем страницу или удаляем элементы из DOM
+                        location.reload();
+                    } else {
+                        alert('Ошибка при удалении: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Произошла ошибка при отправке запроса');
+                });
+            });
+        }
+            loadMovies();
+            loadHalls();
+        });
+    </script>
+</body>

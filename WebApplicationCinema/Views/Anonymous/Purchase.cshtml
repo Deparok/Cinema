@@ -1,0 +1,624 @@
+@model PurchaseViewModel
+@{
+    string mainPage = "/";
+    ViewData["title"] = Model.Title;
+    string mountainImage = "/images/logo_mountain.png";
+    string moneyImage = "/images/money.png";
+}
+
+@* <script>
+window.debugData = [];
+function logEvent(event) {
+    debugData.push(event);
+    console.log(event);
+}
+document.addEventListener('click', function(e) {
+    logEvent({type: 'click', target: e.target.tagName, class: e.target.className, name: e.target.name});
+});
+</script> *@
+  <body data-path-to-root="../" data-include-products="false" class="u-body u-xl-mode" data-lang="ru"><header class="u-border-2 u-border-grey-75 u-clearfix u-header u-header" id="header"><div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+        <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" role="navigation">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" tabindex="-1" aria-label="Open menu" aria-controls="913b">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul role="menubar" class="u-nav u-unstyled u-nav-1"><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@mainPage style="padding: 10px 20px;">Главная</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@Model.Login_outPage style="padding: 10px 20px;">@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@Model.Profile_panelPage style="padding: 10px 20px;">@Model.Profile_panelText</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse" id="913b" role="region" aria-label="Menu panel">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close" tabindex="-1" aria-label="Close menu"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2" role="menubar"><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@mainPage>Главная</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@Model.Login_outPage>@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@Model.Profile_panelPage>@Model.Profile_panelText</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav><span class="u-file-icon u-icon u-icon-1" data-href=@mainPage data-page-id="115758581" title="start"><img src=@mountainImage alt=""></span>
+      </div></header>
+    <fieldset class="u-clearfix u-section-1" id="sec-1a90">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <img class="u-image u-image-default u-image-1" src=@Model.Movie.PosterPath alt="" data-image-width="1920" data-image-height="1080">
+        <h2 class="u-text u-text-default u-text-1"> @Model.Movie.Name </h2>
+        <div class="custom-expanded u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-1">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-1">
+                <p class="u-align-left u-text u-text-default u-text-2">В прокате с </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-2">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-2">
+                <p class="u-align-left u-text u-text-default u-text-3">@Model.Movie.RuntimeStart.ToDateMonth() </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-3">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-3">
+                <p class="u-align-left u-text u-text-default u-text-4">В прокате до </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-4">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-4">
+                <p class="u-align-left u-text u-text-default u-text-5">@Model.Movie.RuntimeStop.ToDateMonth()</p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-5">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-5">
+                <p class="u-align-left u-text u-text-default u-text-6">Хронометраж </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-6">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-6">
+                <p class="u-align-left u-text u-text-default u-text-7">@Model.Movie.Runtime мин. </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-clearfix u-group-elements u-group-elements-1">
+          <div class="u-color-var u-preserve-proportions u-radius u-shape u-shape-round u-shape-1"></div>
+          <p class="u-text u-text-8">Свободные места - </p>
+        </div>
+        <div class="u-clearfix u-group-elements u-group-elements-2">
+          <div class="u-color-var u-preserve-proportions u-radius u-shape u-shape-round u-shape-2"></div>
+          <p class="u-text u-text-9">Забронированные места - </p>
+        </div>
+        <div class="u-align-center u-clearfix u-group-elements u-group-elements-3"><span class="u-file-icon u-icon u-icon-1"><img src=@moneyImage alt=""></span>
+          <p class="u-large-text u-text u-text-default u-text-variant u-text-10">@Model.TotalCost</p>
+          <p class="u-large-text u-text u-text-default u-text-variant u-text-11">Цена одного билета: </p>
+        </div>
+        <div class="u-clearfix u-group-elements u-group-elements-4">
+          <div class="u-color-var u-preserve-proportions u-radius u-shape u-shape-round u-shape-3"></div>
+          <p class="u-text u-text-12">Купленные места -</p>
+        </div>
+      </div>
+    </fieldset>
+    <section class="u-clearfix u-section-2" id="block-6">
+        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            @{
+                for(int i = 0; i < Model.SeatTable.Count; i++)
+                {
+                     
+                    int secondSeats = Model.SeatTable[i].Count / 2;
+                    int firstSeats = Model.SeatTable[i].Count - secondSeats; // Сюда лучше больше
+
+                    int seatNumber = 0;
+                    <div class="custom-expanded u-align-center u-list u-list-11">
+                        <div class="u-repeater u-repeater-1">
+                            @for (int j = 1; j < 11; j++)
+                            {
+                                // if (j < 11 - firstSeats)
+                                // {
+                                //     <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-1">
+                                //         <div class="u-container-layout u-similar-container u-container-layout-1"></div>
+                                //     </div>
+                                //     continue;
+                                // }
+                                
+                                seatNumber++;
+
+                                switch(Model.SeatTable[i][j - 1].State)
+                                {
+                                    case SeatState.Free:
+                                        <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-1">
+                                            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                                                <a name="btn" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-1">@seatNumber</a>
+                                            </div>
+                                        </div>
+                                        break;
+
+                                    case SeatState.Booked:
+                                        <div class="u-container-style u-custom-item u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-20"> 
+                                            <div class="u-container-layout u-similar-container u-container-layout-20">
+                                                <p class="u-align-center u-text u-text-color-var u-text-default u-text-20">@seatNumber</p>
+                                            </div>
+                                        </div>
+                                        break;
+
+                                    case SeatState.Bought:
+                                        <div class="u-container-style u-custom-item u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-1">
+                                            <div class="u-container-layout u-similar-container u-container-layout-1">
+                                                <p class="u-align-center u-text u-text-color-var u-text-default u-text-1">@seatNumber</p>
+                                            </div>
+                                        </div>
+                                        break;
+
+                                    case SeatState.None:
+                                        <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-1">
+                                            <div class="u-container-layout u-similar-container u-container-layout-1"></div>
+                                        </div>
+                                        seatNumber--;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                        </div>
+                    </div>
+
+                    <div class="custom-expanded u-align-center u-list u-list-2">
+                        <div class="u-repeater u-repeater-2">
+                            @for(int j = firstSeats + 1; j < firstSeats + secondSeats + 1; j++)
+                            {
+                                seatNumber++;
+
+                                // if (seatNumber + 1 > Model.SeatTable[i].Count)
+                                // {
+                                //     break;
+                                // }
+
+                                switch(Model.SeatTable[i][j - 1].State)
+                                {
+                                    case SeatState.Free:
+                                        <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-1">
+                                            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                                                <a name="btn" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-1">@seatNumber</a>
+                                            </div>
+                                        </div>
+                                        break;
+
+                                    case SeatState.Booked:
+                                        <div class="u-container-style u-custom-item u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-20"> 
+                                            <div class="u-container-layout u-similar-container u-container-layout-1">
+                                                <p class="u-align-center u-text u-text-color-var u-text-default u-text-1">@seatNumber</p>
+                                            </div>
+                                        </div>
+                                        break;
+
+                                    case SeatState.Bought:
+                                        <div class="u-container-style u-custom-item u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-1">
+                                            <div class="u-container-layout u-similar-container u-container-layout-1">
+                                                <p class="u-align-center u-text u-text-color-var u-text-default u-text-1">@seatNumber</p>
+                                            </div>
+                                        </div>
+                                        break;
+
+                                    case SeatState.None:
+                                        <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-1">
+                                            <div class="u-container-layout u-similar-container u-container-layout-1"></div>
+                                        </div>
+                                        seatNumber--;
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            @* <div class="custom-expanded u-align-center u-list u-list-1">
+                <div class="u-repeater u-repeater-1">
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-1">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+                            <a name="btn" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-1">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-2">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-2">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-3">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-3">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-4">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-4">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-4">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-5">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-5">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-6">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-6">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-6">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-7">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-7">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-7">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-8">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-8">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-8">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-opacity u-opacity-80 u-repeater-item u-shape-rectangle u-list-item-9">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-9">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-9">1 </a>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle u-list-item-10">
+                        <div class="u-container-layout u-similar-container u-valign-top u-container-layout-10">
+                            <a href="" class="u-border-none u-btn u-btn-round u-button-style u-palette-4-dark-1 u-radius u-text-body-color u-btn-10">1 </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-expanded u-align-center u-list u-list-2">
+                <div class="u-repeater u-repeater-2">
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-11">
+                        <div class="u-container-layout u-similar-container u-container-layout-11">
+                            <p class="u-align-center u-text u-text-default u-text-1">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-12">
+                        <div class="u-container-layout u-similar-container u-container-layout-12">
+                            <p class="u-align-center u-text u-text-default u-text-2">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-13">
+                        <div class="u-container-layout u-similar-container u-container-layout-13">
+                            <p class="u-align-center u-text u-text-default u-text-3">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-14">
+                        <div class="u-container-layout u-similar-container u-container-layout-14">
+                            <p class="u-align-center u-text u-text-default u-text-4">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-15">
+                        <div class="u-container-layout u-similar-container u-container-layout-15">
+                            <p class="u-align-center u-text u-text-default u-text-5">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-16">
+                        <div class="u-container-layout u-similar-container u-container-layout-16">
+                            <p class="u-align-center u-text u-text-default u-text-6">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-17">
+                        <div class="u-container-layout u-similar-container u-container-layout-17">
+                            <p class="u-align-center u-text u-text-default u-text-7">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-18">
+                        <div class="u-container-layout u-similar-container u-container-layout-18">
+                            <p class="u-align-center u-text u-text-default u-text-8">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-19">
+                        <div class="u-container-layout u-similar-container u-container-layout-19">
+                            <p class="u-align-center u-text u-text-default u-text-9">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-3-light-1 u-radius u-repeater-item u-shape-round u-list-item-20">
+                        <div class="u-container-layout u-similar-container u-container-layout-20">
+                            <p class="u-align-center u-text u-text-default u-text-10">1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-expanded u-align-center u-list u-list-3">
+                <div class="u-repeater u-repeater-3">
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-21">
+                        <div class="u-container-layout u-similar-container u-container-layout-21">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-11">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-22">
+                        <div class="u-container-layout u-similar-container u-container-layout-22">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-12">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-23">
+                        <div class="u-container-layout u-similar-container u-container-layout-23">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-13">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-24">
+                        <div class="u-container-layout u-similar-container u-container-layout-24">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-14">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-25">
+                        <div class="u-container-layout u-similar-container u-container-layout-25">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-15">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-26">
+                        <div class="u-container-layout u-similar-container u-container-layout-26">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-16">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-27">
+                        <div class="u-container-layout u-similar-container u-container-layout-27">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-17">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-28">
+                        <div class="u-container-layout u-similar-container u-container-layout-28">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-18">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-29">
+                        <div class="u-container-layout u-similar-container u-container-layout-29">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-19">1</p>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-list-item u-palette-2-light-1 u-radius u-repeater-item u-shape-round u-list-item-30">
+                        <div class="u-container-layout u-similar-container u-container-layout-30">
+                            <p class="u-align-center u-text u-text-body-color u-text-default u-text-20">1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-expanded u-align-center u-list u-list-4">
+                <div class="u-repeater u-repeater-4">
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-31">
+                        <div class="u-container-layout u-similar-container u-container-layout-31"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-32">
+                        <div class="u-container-layout u-similar-container u-container-layout-32"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-33">
+                        <div class="u-container-layout u-similar-container u-container-layout-33"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-34">
+                        <div class="u-container-layout u-similar-container u-container-layout-34"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-35">
+                        <div class="u-container-layout u-similar-container u-container-layout-35"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-36">
+                        <div class="u-container-layout u-similar-container u-container-layout-36"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-37">
+                        <div class="u-container-layout u-similar-container u-container-layout-37"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-38">
+                        <div class="u-container-layout u-similar-container u-container-layout-38"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-39">
+                        <div class="u-container-layout u-similar-container u-container-layout-39"></div>
+                    </div>
+                    <div class="u-container-style u-list-item u-radius u-repeater-item u-shape-round u-list-item-40">
+                        <div class="u-container-layout u-similar-container u-container-layout-40"></div>
+                    </div>
+                </div>
+            </div> *@
+        </div>
+    </section>
+    <section class="u-clearfix u-section-3" id="block-7">
+      <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+          @* <form method="post">
+              <input type="text" name="seats" value="" hidden/>
+              <input type="submit" name="booked" value="Забронировать" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-light-1 u-radius u-btn-1"/>
+              <input type="submit" name="bought" value="Купить" class="u-border-none u-btn u-btn-round u-button-style u-palette-2-light-1 u-radius u-text-body-color u-btn-2"/> *@
+        <a href="///" class="u-border-none u-btn u-btn-round u-button-style u-palette-3-light-1 u-radius u-btn-1">Забронировать </a>
+        <a href="///" class="u-border-none u-btn u-btn-round u-button-style u-palette-2-light-1 u-radius u-text-body-color u-btn-2">Купить </a>
+        <div class="u-clearfix u-custom-html u-custom-html-1">
+          <label for="email-a3ee" class="u-label u-label-1">Эл. почта</label>
+          <input type="email" placeholder="Введите адрес электронной почты" name="email" class="u-input u-input-1 u-input-rectangle u-radius" required="required" value="@Model.UserEmail">
+        </div>
+        @* </form> *@
+      </div>
+    </section>
+    
+    
+    
+    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-grey-80 u-footer" id="footer"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">© Кинотеатр "Эверест", Сапрыкин Матвей АИБ-23-2 </p>
+      </div></footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedSeats = new Set();
+            const tempSelectedSeats = new Set();
+
+            const emailInput = document.querySelector('input[name="email"]');
+            const seatRows = document.querySelectorAll('.u-list-11');
+
+            seatRows.forEach((row, rowIndex) => {
+            // const seatsInRow = row.querySelectorAll('.u-btn.u-btn-round.u-palette-4-dark-1');
+            // Обработчик клика для мест
+                const seatButtons = row.querySelectorAll('a[name="btn"]');
+
+                seatButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if(tempSelectedSeats.size >= 5 && !tempSelectedSeats.has(this)) {
+                            alert("Вы пытаетесь выбрать слишком много мест!")
+                            return;
+                        }
+
+                        // Получаем номер ряда (индекс + 1, так как ряды обычно нумеруются с 1)
+                        const rowNumber = rowIndex + 1;
+
+                        // Получаем номер места (упрощенно - текст кнопки)
+                        const seatNumber = this.textContent.trim();
+
+                        // Формируем полный идентификатор места (ряд-место)
+                        const fullSeatId = `${rowNumber}-${seatNumber}`;
+
+                        if (tempSelectedSeats.has(this)) {
+                            // Если место уже выбрано - отменяем выбор
+                            tempSelectedSeats.delete(this);
+                            selectedSeats.delete(fullSeatId);
+                            this.classList.remove('selected-seat');
+                            this.style.backgroundColor = ''; // Возвращаем исходный цвет
+                        } else {
+                            // Если место не выбрано - добавляем
+                            tempSelectedSeats.add(this);
+                            selectedSeats.add(fullSeatId);
+                            this.classList.add('selected-seat');
+                            this.style.backgroundColor = '#41807C'; // Подсвечиваем
+                        }
+                    });
+                });
+            });
+
+            const seatSRows = document.querySelectorAll('.u-list-2');
+            
+            seatSRows.forEach((row, rowIndex) => {
+            // const seatsInRow = row.querySelectorAll('.u-btn.u-btn-round.u-palette-4-dark-1');
+            // Обработчик клика для мест
+                const seatButtons = row.querySelectorAll('a[name="btn"]');
+
+                seatButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();                       
+                        if(tempSelectedSeats.size > 5) {
+                            alert("Вы пытаетесь выбрать слишком много мест!")
+                            return;
+                        }
+                        // Получаем номер ряда (индекс + 1, так как ряды обычно нумеруются с 1)
+                        const rowNumber = rowIndex + 1;
+
+                        // Получаем номер места (упрощенно - текст кнопки)
+                        const seatNumber = this.textContent.trim();
+
+                        // Формируем полный идентификатор места (ряд-место)
+                        const fullSeatId = `${rowNumber}-${seatNumber}`;
+
+                        if (tempSelectedSeats.has(this)) {
+                            // Если место уже выбрано - отменяем выбор
+                            tempSelectedSeats.delete(this);
+                            selectedSeats.delete(fullSeatId);
+                            this.classList.remove('selected-seat');
+                            this.style.backgroundColor = ''; // Возвращаем исходный цвет
+                        } else {
+                            // Если место не выбрано - добавляем
+                            tempSelectedSeats.add(this);
+                            selectedSeats.add(fullSeatId);
+                            this.classList.add('selected-seat');
+                            this.style.backgroundColor = '#41807C'; // Подсвечиваем
+                        }
+                    });
+                });
+            });
+    
+            // Обработчики для кнопок бронирования и покупки
+            const bookBtn = document.querySelector('.u-btn.u-palette-3-light-1');
+            const buyBtn = document.querySelector('.u-btn.u-palette-2-light-1');
+    
+            if (bookBtn) {
+                bookBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    processSeats('Бронь', selectedSeats);
+                });
+            }
+    
+            if (buyBtn) {
+                buyBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    processSeats('Покупка', selectedSeats);
+                });
+            }
+    
+            // Функция обработки выбранных мест
+            function processSeats(action, seats) {
+                console.log(seats.size); // REMOVE
+                if (seats.size === 0) {
+                    alert('Пожалуйста, выберите хотя бы одно место!');
+                    return;
+                }
+
+                if (emailInput.value === "") {
+                    alert('Пожалуйста, введите email!');
+                    return;
+                }
+
+                // fetch('/checkAuth')
+                // .then(response => {
+                //    response.json()
+                //    .then(json => {
+                //        json.
+                //    });
+                // });
+                // const seatsList = Array.from(seats).join(', ');
+                // console.log(`${action} мест: ${seatsList}`);
+        
+                // Здесь можно добавить AJAX-запрос для отправки данных на сервер
+                // Например:
+
+                fetch('/reserving', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: action,
+                        session: @{@Model.Session.ID},
+                        seats: Array.from(seats),
+                        email: emailInput.value
+                    })
+                })
+                .then(response => {
+                    console.log(response);
+                    response.json().then(json => {
+                        if (json.isEmailValid){
+                            // console.log("redir")
+                            if (action === "Бронь"){
+                                alert("Билет отправлен на вашу почту");
+                            }
+                            window.location.href = json.redirect;
+                        }
+                        else{
+                            alert("Пожалуйста введите корректный email!");
+                        }
+                    });
+                    // window.location.href = "/";
+                    // obj = JSON.parse(response.json)
+                    // console.log(obj)
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                });
+       
+        
+                // alert(`${action} мест: ${seatsList}\n(проверьте консоль для деталей)`);
+            }
+
+});
+    </script>
+
+@*     <script>
+        console.log('Скрипт загружен'); // Должно появиться в консоли
+        document.querySelectorAll('a[name="btn"]').forEach(btn => {
+        btn.addEventListener('click', function() {
+        console.log('Кнопка нажата:', this.textContent); // Проверка кликов
+        this.style.border = '2px solid red'; // Визуальная проверка
+    });
+});
+    </script> *@
+
+</body>
+</html>

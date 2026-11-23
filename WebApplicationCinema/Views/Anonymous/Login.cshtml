@@ -1,0 +1,108 @@
+@model LoginViewModel
+@{
+
+    Layout = "_LoginLayout"; ;
+    string mainPage = "/";
+    ViewData["title"] = Model.Title;
+    string mountainImage = "/images/logo_mountain.png";
+    string registerPage = "/register";
+}
+
+<body data-path-to-root="../" data-include-products="false" class="u-body u-xl-mode" data-lang="ru">
+    <header class="u-border-2 u-border-grey-75 u-clearfix u-header u-header" id="header">
+        <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+            <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" role="navigation">
+                <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+                    <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" tabindex="-1" aria-label="Open menu" aria-controls="913b">
+                        <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
+                        <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                            <g>
+                                <rect y="1" width="16" height="2"></rect>
+                                <rect y="7" width="16" height="2"></rect>
+                                <rect y="13" width="16" height="2"></rect>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+                <div class="u-custom-menu u-nav-container">
+                    <ul role="menubar" class="u-nav u-unstyled u-nav-1">
+                        <li role="none" class="u-nav-item">
+                            <a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@mainPage style="padding: 10px 20px;">Главная</a>
+                        </li>
+                        <li role="none" class="u-nav-item">
+                            <a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@Model.Login_outPage style="padding: 10px 20px;">@Model.Login_outText</a>
+                        </li>
+                        <li role="none" class="u-nav-item">
+                            <a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@Model.Profile_panelPage style="padding: 10px 20px;">@Model.Profile_panelText</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="u-custom-menu u-nav-container-collapse" id="913b" role="region" aria-label="Menu panel">
+                    <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+                        <div class="u-inner-container-layout u-sidenav-overflow">
+                            <div class="u-menu-close" tabindex="-1" aria-label="Close menu"></div>
+                            <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2" role="menubar">
+                                <li role="none" class="u-nav-item">
+                                    <a role="menuitem" class="u-button-style u-nav-link" href=@mainPage>Главная</a>
+                                </li>
+                                <li role="none" class="u-nav-item">
+                                    <a role="menuitem" class="u-button-style u-nav-link" href=@Model.Login_outPage>@Model.Login_outText</a>
+                                </li>
+                                <li role="none" class="u-nav-item">
+                                    <a role="menuitem" class="u-button-style u-nav-link" href=@Model.Profile_panelPage>@Model.Profile_panelText</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+                </div>
+            </nav><span class="u-file-icon u-icon u-icon-1" data-href=@mainPage data-page-id="115758581" title="start"><img src=@mountainImage alt=""></span>
+        </div>
+    </header>
+    <section class="u-clearfix u-gradient u-section-1" id="block-1">
+        <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+            <div class="u-align-center u-form u-gradient u-form-1">
+                <form class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;" method="post">
+                    @if (!Model.IsAuthenticeted)
+                    {
+                        <div class="u-form-email u-form-group u-label-top">
+                            <label for="email-a3ee" class="u-label u-label-1">Эл. почта</label>
+                            <input type="email" placeholder="Введите адрес электронной почты" id="email-a3ee" name="email" class="u-input u-input-rectangle u-radius u-input-1" required="required">
+                        </div>
+                        <div class="u-form-group u-label-top u-form-group-2">
+                            <label for="text-f45a" class="u-label u-label-2">Пароль</label>
+                            <input type="password" id="text-f45a" name="password" class="u-input u-input-rectangle u-radius u-input-2" placeholder="Введите пароль" required="required">
+                        </div>
+                        <div class="u-align-center u-form-group u-form-submit u-label-top">
+                            <input type="submit" value="Войти" class="u-active-palette-1-dark-2 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-light-2 u-radius u-btn-1" name="sbmt">
+                        </div>
+                        <p class="u-form-group u-form-text u-text u-text-1">
+                            <a class="u-border-hover-grey-75 u-border-none u-btn u-button-link u-button-style u-none u-text-active-palette-2-dark-3 u-text-hover-palette-2-light-1 u-text-palette-2-base u-btn-2" href=@registerPage data-page-id="8103911">Зарегестрироваться</a>
+                        </p>
+                        <div class="u-form-send-message u-form-send-success">Вы успешно вошли!</div>
+                        <div class="u-form-send-error u-form-send-message">Логин или пароль не верны, пожалуйста, исправьте ошибки и попробуйте еще раз.</div>
+                        if (!Model.UserExists)
+                        {
+                            <script>alert("Вы неверно ввели логин или пароль!")</script>
+                        }
+                    }
+                    else
+                    {
+                        <h2 class="u-text u-text-1">Вы уже вошли в аккаунт</h2>
+                        <a href="/logout" style="padding-left: 35%;">Хотите выйти?</a>
+                    }
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-grey-80 u-footer" id="footer">
+        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <p class="u-small-text u-text u-text-variant u-text-1">© Кинотеатр "Эверест", Сапрыкин Матвей АИБ-23-2 </p>
+        </div>
+    </footer>
+    <section class="u-backlink u-clearfix u-grey-80"></section>
+</body>

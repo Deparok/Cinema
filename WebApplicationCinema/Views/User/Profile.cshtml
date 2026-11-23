@@ -1,0 +1,138 @@
+@using System.Text
+@model ProfileViewModel
+@{
+    // Layout = "_LoginLayout"; ****
+    string mainPage = "/";
+    ViewData["title"] = Model.Title;
+    string profilePage = "/profile";
+    string mountainImage = "/images/logo_mountain.png";
+    string moneyImage = "/images/money.png";
+}
+
+  <body data-path-to-root="../" data-include-products="false" class="u-body u-xl-mode" data-lang="ru"><header class="u-border-2 u-border-grey-75 u-clearfix u-header u-header" id="header"><div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+        <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" role="navigation">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" tabindex="-1" aria-label="Open menu" aria-controls="913b">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+            <ul role="menubar" class="u-nav u-unstyled u-nav-1"><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@mainPage style="padding: 10px 20px;">Главная</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@Model.Login_outPage style="padding: 10px 20px;">@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@profilePage style="padding: 10px 20px;">Профиль</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse" id="913b" role="region" aria-label="Menu panel">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close" tabindex="-1" aria-label="Close menu"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2" role="menubar"><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@mainPage>Главная</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@Model.Login_outPage>@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@profilePage>Профиль</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav><span class="u-file-icon u-icon u-icon-1" data-href=@mainPage data-page-id="115758581" title="start"><img src=@mountainImage alt=""></span>
+      </div></header>
+    <section class="u-clearfix u-section-1" id="block-1">
+        <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs" style="min-height: @{@Model.SectionLength}px;">
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1" style="min-height: @{@Model.RepeaterLength}px;">
+            @{
+                if (!Model.HasMovies)
+                {
+                     <div class="u-container-style u-list-item u-repeater-item">
+                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                            <h2 style="text-align: center; text-justify: auto;">Вы еще ничего не приобрели </h2>
+                            <a href="/" style="padding-left: 40%;">Посмотреть фильмы </a>
+                        </div>
+                    </div>
+                }
+                foreach (IGrouping<(Session, Movie), Ticket> group in Model.OrderedMonster)
+                {
+                    decimal totalPrice = (group.Key.Item1.Overprice + group.Key.Item2.Price) * (decimal)group.ToList().Count;
+                    StringBuilder url = new StringBuilder("/download?");
+                    List<Ticket> tickets = group.ToList();
+                    for (int i = 0; i < tickets.Count; i++)
+                        url.Append($"[{i}]={tickets[i].ID}");
+
+                    <div class="u-container-style u-list-item u-repeater-item">
+                        <div class="u-container-layout u-similar-container u-container-layout-1">
+                            <img class="u-image u-image-default u-image-1" src=@group.Key.Item2.PosterPath alt="" data-image-width="1920" data-image-height="1080">
+                            <h2 class="u-text u-text-default u-text-1">@group.Key.Item2.Name </h2>
+                            <p class="u-large-text u-text u-text-default u-text-variant u-text-2">Количество купленных билетов: @tickets.Count</p>
+                            <p class="u-large-text u-text u-text-variant u-text-3">Дата: @group.Key.Item1.Date.ToShortDateString()<br/>Время: @group.Key.Item1.StartTime.ToShortTimeString()</p>
+                            <a href="@url" class="u-btn u-btn-round u-button-style u-hover-palette-2-base u-palette-3-base u-radius u-btn-1">
+                                <span class="u-icon u-icon-1"><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M382.56,233.376C379.968,227.648,374.272,224,368,224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832,0-16,7.168-16,16v208h-64    c-6.272,0-11.968,3.68-14.56,9.376c-2.624,5.728-1.6,12.416,2.528,17.152l112,128c3.04,3.488,7.424,5.472,12.032,5.472    c4.608,0,8.992-2.016,12.032-5.472l112-128C384.192,245.824,385.152,239.104,382.56,233.376z"></path><path d="M432,352v96H80v-96H16v128c0,17.696,14.336,32,32,32h416c17.696,0,32-14.304,32-32V352H432z"></path></svg></span>&nbsp;Скачать билеты
+                            </a>
+                            <div class="u-align-center u-clearfix u-group-elements u-group-elements-1">
+                                <span class="u-file-icon u-icon u-icon-2"><img src=@moneyImage alt=""></span>
+                                <p class="u-large-text u-text u-text-default u-text-variant u-text-4">@totalPrice</p>
+                                <p class="u-large-text u-text u-text-default u-text-variant u-text-5">Стоимость билетов: </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @* <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-1">
+                <img class="u-image u-image-default u-image-1" src="../images/9d514ec9-b519-f1a1-5f5c-faa423cf6811.jpg" alt="" data-image-width="1920" data-image-height="1080">
+                <h2 class="u-text u-text-default u-text-1">Новичок </h2>
+                <p class="u-large-text u-text u-text-default u-text-variant u-text-2">Количество купленных билетов: </p>
+                <p class="u-large-text u-text u-text-variant u-text-3">Время: 18:30</p>
+                <a href="" class="u-btn u-btn-round u-button-style u-hover-palette-2-base u-palette-3-base u-radius u-btn-1"><span class="u-icon u-icon-1"><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M382.56,233.376C379.968,227.648,374.272,224,368,224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832,0-16,7.168-16,16v208h-64    c-6.272,0-11.968,3.68-14.56,9.376c-2.624,5.728-1.6,12.416,2.528,17.152l112,128c3.04,3.488,7.424,5.472,12.032,5.472    c4.608,0,8.992-2.016,12.032-5.472l112-128C384.192,245.824,385.152,239.104,382.56,233.376z"></path><path d="M432,352v96H80v-96H16v128c0,17.696,14.336,32,32,32h416c17.696,0,32-14.304,32-32V352H432z"></path></svg></span>&nbsp;Скачать билеты
+                </a>
+                <div class="u-align-center u-clearfix u-group-elements u-group-elements-1"><span class="u-file-icon u-icon u-icon-2"><img src="../images/3188788.png" alt=""></span>
+                  <p class="u-large-text u-text u-text-default u-text-variant u-text-4">1234</p>
+                  <p class="u-large-text u-text u-text-default u-text-variant u-text-5">Стоимость билетов: </p>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-2">
+                <img class="u-image u-image-default u-image-2" src="../images/9d514ec9-b519-f1a1-5f5c-faa423cf6811.jpg" alt="" data-image-width="1920" data-image-height="1080">
+                <h2 class="u-text u-text-default u-text-6">Новичок </h2>
+                <p class="u-large-text u-text u-text-default u-text-variant u-text-7">Количество купленных билетов: </p>
+                <p class="u-large-text u-text u-text-variant u-text-8">Время: 18:30</p>
+                <a href="" class="u-btn u-btn-round u-button-style u-hover-palette-2-base u-palette-3-base u-radius u-btn-2"><span class="u-icon u-icon-3"><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M382.56,233.376C379.968,227.648,374.272,224,368,224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832,0-16,7.168-16,16v208h-64    c-6.272,0-11.968,3.68-14.56,9.376c-2.624,5.728-1.6,12.416,2.528,17.152l112,128c3.04,3.488,7.424,5.472,12.032,5.472    c4.608,0,8.992-2.016,12.032-5.472l112-128C384.192,245.824,385.152,239.104,382.56,233.376z"></path><path d="M432,352v96H80v-96H16v128c0,17.696,14.336,32,32,32h416c17.696,0,32-14.304,32-32V352H432z"></path></svg></span>&nbsp;Скачать билеты
+                </a>
+                <div class="u-align-center u-clearfix u-group-elements u-group-elements-2"><span class="u-file-icon u-icon u-icon-4"><img src="../images/3188788.png" alt=""></span>
+                  <p class="u-large-text u-text u-text-default u-text-variant u-text-9">1234</p>
+                  <p class="u-large-text u-text u-text-default u-text-variant u-text-10">Стоимость билетов: </p>
+                </div>
+              </div>
+            </div>
+            <div class="u-container-style u-list-item u-repeater-item">
+              <div class="u-container-layout u-similar-container u-container-layout-3">
+                <img class="u-image u-image-default u-image-3" src="../images/9d514ec9-b519-f1a1-5f5c-faa423cf6811.jpg" alt="" data-image-width="1920" data-image-height="1080">
+                <h2 class="u-text u-text-default u-text-11">Новичок </h2>
+                <p class="u-large-text u-text u-text-default u-text-variant u-text-12">Количество купленных билетов: </p>
+                <p class="u-large-text u-text u-text-variant u-text-13">Время: 18:30</p>
+                <a href="" class="u-btn u-btn-round u-button-style u-hover-palette-2-base u-palette-3-base u-radius u-btn-3"><span class="u-icon u-icon-5"><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M382.56,233.376C379.968,227.648,374.272,224,368,224h-64V16c0-8.832-7.168-16-16-16h-64c-8.832,0-16,7.168-16,16v208h-64    c-6.272,0-11.968,3.68-14.56,9.376c-2.624,5.728-1.6,12.416,2.528,17.152l112,128c3.04,3.488,7.424,5.472,12.032,5.472    c4.608,0,8.992-2.016,12.032-5.472l112-128C384.192,245.824,385.152,239.104,382.56,233.376z"></path><path d="M432,352v96H80v-96H16v128c0,17.696,14.336,32,32,32h416c17.696,0,32-14.304,32-32V352H432z"></path></svg></span>&nbsp;Скачать билеты
+                </a>
+                <div class="u-align-center u-clearfix u-group-elements u-group-elements-3"><span class="u-file-icon u-icon u-icon-6"><img src="../images/3188788.png" alt=""></span>
+                  <p class="u-large-text u-text u-text-default u-text-variant u-text-14">1234</p>
+                  <p class="u-large-text u-text u-text-default u-text-variant u-text-15">Стоимость билетов: </p>
+                </div>
+              </div>
+            </div> *@
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    
+    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-grey-80 u-footer" id="footer">
+        <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+            <p class="u-small-text u-text u-text-variant u-text-1">© Кинотеатр "Эверест", Сапрыкин Матвей АИБ-23-2 </p>
+        </div>
+    </footer>
+    <span style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; background-image: linear-gradient(#2cccc4, #db545a); right: 20px; bottom: 20px; padding: 15px;" class="u-back-to-top u-gradient u-icon u-icon-circle u-opacity u-opacity-75" data-href="#"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d98"></use></svg><svg class="u-svg-content" enable-background="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13" xmlns="http://www.w3.org/2000/svg" id="svg-1d98"><path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z"></path></svg></span>
+
+</body></html>

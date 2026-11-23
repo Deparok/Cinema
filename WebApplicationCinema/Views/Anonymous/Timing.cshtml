@@ -1,0 +1,322 @@
+@model TimingViewModel
+@{
+    // Layout = null;
+    string mainPage = "/";
+    ViewData["title"] = Model.Title;
+    string mountainImage = "/images/logo_mountain.png";
+    string moneyImage = "/images/money.png";
+}
+
+  <body data-path-to-root="../" data-include-products="false" class="u-body u-xl-mode" data-lang="ru"><header class="u-border-2 u-border-grey-75 u-clearfix u-header u-header" id="header"><div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+        <nav class="u-menu u-menu-one-level u-offcanvas u-menu-1" role="navigation">
+          <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+            <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" tabindex="-1" aria-label="Open menu" aria-controls="913b">
+              <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
+              <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+</g></svg>
+            </a>
+          </div>
+          <div class="u-custom-menu u-nav-container">
+                    <ul role="menubar" class="u-nav u-unstyled u-nav-1">
+                        <li role="none" class="u-nav-item">
+                            <a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@mainPage style="padding: 10px 20px;">Главная</a>
+                        </li>
+                        <li role="none" class="u-nav-item">
+                            <a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@Model.Login_outPage style="padding: 10px 20px;">@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href=@Model.Profile_panelPage style="padding: 10px 20px;">@Model.Profile_panelText</a>
+</li></ul>
+          </div>
+          <div class="u-custom-menu u-nav-container-collapse" id="913b" role="region" aria-label="Menu panel">
+            <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+              <div class="u-inner-container-layout u-sidenav-overflow">
+                <div class="u-menu-close" tabindex="-1" aria-label="Close menu"></div>
+                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2" role="menubar"><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@mainPage>Главная</a>
+                                </li>
+                                <li role="none" class="u-nav-item">
+                                    <a role="menuitem" class="u-button-style u-nav-link" href=@Model.Login_outPage>@Model.Login_outText</a>
+</li><li role="none" class="u-nav-item"><a role="menuitem" class="u-button-style u-nav-link" href=@Model.Profile_panelPage>@Model.Profile_panelText</a>
+</li></ul>
+              </div>
+            </div>
+            <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+          </div>
+        </nav><span class="u-file-icon u-icon u-icon-1" data-href=@mainPage data-page-id="115758581" title="start"><img src=@mountainImage alt=""></span>
+      </div></header>
+    <section class="u-clearfix u-section-1" id="block-4">
+      <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <img class="u-image u-image-default u-image-1" src=@Model.Movie.PosterPath alt="" data-image-width="1920" data-image-height="1080">
+        <h2 class="u-text u-text-default u-text-1"> @Model.Movie.Name </h2>
+        <div class="custom-expanded u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-1">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-1">
+                <p class="u-align-left u-text u-text-default u-text-2">В прокате с </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-2">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-2">
+                            <p class="u-align-left u-text u-text-default u-text-3">@Model.Movie.RuntimeStart.ToShortDateString() </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-3">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-3">
+                <p class="u-align-left u-text u-text-default u-text-4">В прокате до </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-4">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-4">
+                            <p class="u-align-left u-text u-text-default u-text-5">@Model.Movie.RuntimeStop.ToShortDateString()</p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-5">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-5">
+                <p class="u-align-left u-text u-text-default u-text-6">Хронометраж </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-6">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-6">
+                            <p class="u-align-left u-text u-text-default u-text-7">@Model.Movie.Runtime мин. </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-7">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-7">
+                <p class="u-align-left u-text u-text-default u-text-8">Режиссер </p>
+              </div>
+            </div>
+            <div class="u-border-2 u-border-grey-75 u-border-no-left u-border-no-right u-border-no-top u-container-style u-list-item u-repeater-item u-list-item-8">
+              <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-8">
+                <p class="u-align-left u-text u-text-default u-text-9">@Model.Movie.Director </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="u-align-center u-clearfix u-group-elements u-group-elements-1"><span class="u-file-icon u-icon u-icon-1"><img src=@moneyImage alt=""></span>
+                <p class="u-large-text u-text u-text-default u-text-variant u-text-10">@Model.Movie.Price</p>
+          <p class="u-large-text u-text u-text-default u-text-variant u-text-11">Цена одного билета: </p>
+        </div>
+      </div>
+    </section>
+    <section class="u-clearfix u-section-2" id="block-6">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div class="u-expanded-width u-tab-links-align-justify u-tabs u-tabs-1">
+                <ul class="u-border-2 u-border-grey-50 u-palette-5-light-2 u-tab-list u-unstyled u-tab-list-1" role="tablist">
+                    @{
+                        List<IGrouping<DateOnly, Session>> sessions = Model.Sessions;
+
+                        string activity = "active";
+                        for (int i = 0; i < sessions.Count; i++)
+                        {
+                            if (i > 0 && activity != "")
+                                activity = "";
+
+                            <li class="u-tab-item" role="presentation">
+                                <a class="@activity u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-1" href="#tab-@i" role="tab">
+                                    <span style="font-size: 1.25rem; font-weight: 700;">@sessions[i].Key.ToWeekDay()</span><br>@sessions[i].Key.ToDateMonth()
+                                </a>
+                            </li>
+                        }
+                    }
+                    @* <li class="u-tab-item" role="presentation">
+                        <a class="active u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-1" id="link-tab-ed54" href="#tab-ed54" role="tab" aria-controls="tab-ed54" aria-selected="true">
+                            <span style="font-size: 1.25rem; font-weight: 700;">Сегодня</span><br>18 июня
+                        </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-2" id="link-tab-9957" href="#tab-9957" role="tab" aria-controls="tab-9957" aria-selected="false">
+                            <span style="font-size: 1.25rem; font-weight: 700;">Завтра</span><br>19 июня
+                        </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-3" id="link-tab-3af8" href="#tab-3af8" role="tab" aria-controls="tab-3af8" aria-selected="false">
+                            <span style="font-weight: 700; font-size: 1.25rem;">Пятница</span><br>20 июня
+                        </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-4" id="link-tab-6649" href="#tab-6649" role="tab" aria-controls="tab-6649" aria-selected="false">
+                            <span style="font-weight: 700; font-size: 1.25rem;">Суббота</span><br>21 июня
+                        </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-5" id="link-tab-d8c8" href="#tab-d8c8" role="tab" aria-controls="tab-d8c8" aria-selected="false">
+                            <span style="font-weight: 700; font-size: 1.25rem;">Воскресенье</span><br>22 июня
+                        </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-6" id="link-tab-9903" href="#tab-9903" role="tab" aria-controls="tab-9903" aria-selected="false">
+                            <span style="font-weight: 700; font-size: 1.25rem;">Понедельник</span><br>23 июня
+                        </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-7" id="link-tab-3258" href="#tab-3258" role="tab" aria-controls="tab-3258" aria-selected="false">
+                            <span style="font-weight: 700; font-size: 1.25rem;">Вторник</span><br>24 июня
+                        </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-light-2 u-button-style u-hover-palette-1-light-3 u-tab-link u-tab-link-8" id="link-tab-32d2" href="#tab-32d2" role="tab" aria-controls="tab-32d2" aria-selected="false">
+                            <span style="font-weight: 700; font-size: 1.25rem;">Среда</span><br>25 июня
+                        </a>
+                    </li> *@
+                </ul>
+                <div class="u-tab-content">
+                    @{
+                        activity = "u-tab-active";
+
+                        for (int i = 0; i < Model.Sessions.Count; i++)
+                        {
+                            if (i > 0 && activity != "")
+                                activity = "";
+
+                            <div class="u-container-style @activity u-tab-pane" id="tab-@i" role="tabpanel" aria-labelledby="link-tab-9957">
+                                <div class="u-container-layout u-container-layout-1">
+                                    <div class="u-expanded-width u-list u-list-1">
+                                        <div class="u-repeater u-repeater-1">
+                                        @foreach (Session session in Model.Sessions[i])
+                                        {
+                                            <div class="u-container-style u-list-item u-repeater-item">
+                                                <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-2">
+                                                        <a href="/purchase?session=@session.ID" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">@session.StartTime.ToShortTimeString() </a>
+                                                </div>
+                                            </div>
+                                        }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    @* <div class="u-container-style u-tab-active u-tab-pane" id="tab-ed54" role="tabpanel" aria-labelledby="link-tab-ed54">
+                        <div class="u-container-layout u-valign-middle u-container-layout-1">
+                            <div class="u-expanded-width u-list u-list-1">
+                                <div class="u-repeater u-repeater-1">
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-2">
+                                            <a href="#" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-3">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-2">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-4">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-3">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-5">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-4">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-6">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-5">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-7">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-6">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-8">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-7">18:30 </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-9957" role="tabpanel" aria-labelledby="link-tab-9957">
+                        <div class="u-container-layout u-container-layout-9"></div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-3af8" role="tabpanel" aria-labelledby="link-tab-3af8">
+                        <div class="u-container-layout u-container-layout-10"></div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-6649" role="tabpanel" aria-labelledby="link-tab-6649">
+                        <div class="u-container-layout u-container-layout-11"></div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-d8c8" role="tabpanel" aria-labelledby="link-tab-d8c8">
+                        <div class="u-container-layout u-container-layout-12"></div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-9903" role="tabpanel" aria-labelledby="link-tab-9903">
+                        <div class="u-container-layout u-container-layout-13"></div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-3258" role="tabpanel" aria-labelledby="link-tab-3258">
+                        <div class="u-container-layout u-container-layout-14"></div>
+                    </div>
+                    <div class="u-container-style u-tab-pane" id="tab-32d2" role="tabpanel" aria-labelledby="link-tab-32d2">
+                        <div class="u-container-layout u-valign-middle u-container-layout-15">
+                            <div class="u-expanded-width u-list u-list-2">
+                                <div class="u-repeater u-repeater-2">
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-16">
+                                            <a href="#" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-8">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-17">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-9">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-18">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-10">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-19">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-11">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-20">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-12">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-21">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-13">18:30 </a>
+                                        </div>
+                                    </div>
+                                    <div class="u-container-style u-list-item u-repeater-item">
+                                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-22">
+                                            <a href="" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-14">18:30 </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> *@
+                </div>
+            </div>
+        </div>
+    </section>
+    @* <section class="u-clearfix u-section-2" id="block-5">
+      <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+        <div class="u-expanded-width u-list u-list-1">
+          <div class="u-repeater u-repeater-1">
+            @{
+                foreach (string timing in Model.Timings)
+                {
+                    <div class="u-container-style u-list-item u-repeater-item">
+                        <div class="u-container-layout u-similar-container u-valign-middle u-container-layout-1">
+                            <a href="/purchase?movie=@Model.Film.Id&timing=@timing" class="u-active-none u-border-2 u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">@timing </a>
+                        </div>
+                    </div>
+                }
+            }
+          </div>
+        </div>
+      </div>
+    </section> *@
+    
+    
+    
+    
+    <footer class="u-align-center u-clearfix u-container-align-center u-footer u-grey-80 u-footer" id="footer"><div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+        <p class="u-small-text u-text u-text-variant u-text-1">© Кинотеатр "Эверест", Сапрыкин Матвей АИБ-23-2 </p>
+      </div></footer>
+    <section class="u-backlink u-clearfix u-grey-80"></section>
+  
+</body></html>
