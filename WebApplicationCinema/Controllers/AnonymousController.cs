@@ -114,7 +114,7 @@ namespace WebApplicationCinema.Controllers
             string password = GeneratePassword();
             await _db.ExecuteProcedureAsync("CreateUser", [email, _hasher.HashPassword(null, password)]);
             
-            if (_mailBox.Send(email, "                               \"       \"", $"{email}, \n                    : \"{password}\""))
+            if (_mailBox.Send(email, "Создание аккаунта в кинотеатре \"Эверест\"", $"{email}, \nВаш пароль для входа: \"{password}\""))
                 return LocalRedirect("/login");
             else
                 return LocalRedirect("/register");
@@ -200,9 +200,9 @@ namespace WebApplicationCinema.Controllers
                                     .Where(seat => reservation.seats.Contains($"{seat.Row}-{seat.Number}"))
                                     .ToList();
             foreach (Seat seat in seats)
-                await _db.ExecuteQueryAsync($"INSERT INTO Tickets([Session], Seat, [Status]) VALUES ({reservation.session}, {seat.ID}, {(reservation.action == "       " ? 3 : 2)})");
+                await _db.ExecuteQueryAsync($"INSERT INTO Tickets([Session], Seat, [Status]) VALUES ({reservation.session}, {seat.ID}, {(reservation.action == "Покупка" ? 3 : 2)})");
 
-            if (reservation.action == "       ")
+            if (reservation.action == "Покупка")
             {
                 //if (!isEmailValid)
                 //    return Json(new { isEmailValid = isEmailValid, redirect = "#" });
@@ -227,7 +227,7 @@ namespace WebApplicationCinema.Controllers
                     return Json(new { isEmailValid = isEmailValid, redirect = "#" });
 
                 attachments.Add(new Attachment(stream ?? Stream.Null , "application/pdf"));
-                _mailBox.Send(reservation.email, "                   \"       \"", "       ", attachments);
+                _mailBox.Send(reservation.email, "Билеты в кинотеатр \"Эверест\"", "Покупка", attachments);
                 stream?.Close();
                 return Json(new { isEmailValid = isEmailValid, redirect = url.ToString() });
             }
@@ -248,7 +248,7 @@ namespace WebApplicationCinema.Controllers
         //    <h2>Login Form</h2>
         //    <form method='post'>
         //        <input type='file' name='pict' accept='image/*'/>
-        //        <input type='submit' value='         ' />
+        //        <input type='submit' value='Отправить' />
         //    </form>
         //</body>
         //</html>");
@@ -278,7 +278,7 @@ namespace WebApplicationCinema.Controllers
             if (file is null)
                 return BadRequest();
             //return File("/images/logo_mountain.png", "image/*", "logo_mountain.png");
-            return File(file, "application/pdf", "      _ _         _       .pdf");
+            return File(file, "application/pdf", "Билеты_в_кинотеатр_Эверест.pdf");
         }
 
         [NonAction]
@@ -286,7 +286,7 @@ namespace WebApplicationCinema.Controllers
         {
             //if (!User.Identity?.IsAuthenticated ?? false)
             //    return Unauthorized();
-            //return PhysicalFile(@"C:\Users\matve\OneDrive\           \Rs6.png", "image/*", "cool_file.png");
+            //return PhysicalFile(@"C:\Users\matve\OneDrive\Изображения\Rs6.png", "image/*", "cool_file.png");
             if (tickets is null || tickets.Length == 0)
                 return null;
             List<SeatModel> seats = new List<SeatModel>();
@@ -392,10 +392,10 @@ namespace WebApplicationCinema.Controllers
     </body>
     </html>");
 
-            /*                       json     
+            /* Этот метод отправляет json вида
             {
                 isAuthed : bool,
-                email : email (                                    null)
+                email : email (Если пользователь авторизован иначе null)
             }
 
             */
@@ -429,7 +429,7 @@ namespace WebApplicationCinema.Controllers
         //    if (offset > 6)
         //        return;
 
-        //    List<string> weekDays = new List<string>() { "           ", "           ", "       ", "     ", "       ", "       ", "       " };
+        //    List<string> weekDays = new List<string>() { "Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота" };
         //    List<string> result = new List<string>();
 
         //    for (int i = offset, j = 0; i < offset || j < 1; i++)
@@ -476,6 +476,29 @@ namespace WebApplicationCinema.Controllers
             string password = RandomNumberGenerator.GetString(text, RandomNumberGenerator.GetInt32(10, 15));
             Console.WriteLine($"Password: {password}");
             return password;
+        }
+        
+
+        [HttpGet]
+        public IActionResult DemoVulnerableSearch(string title)
+        {
+            var connectionString = "Server=localhost;Database=Cinema;Trusted_Connection=True;";
+
+            using var connection = new SqlConnection(connectionString);
+
+            // УЯЗВИМОСТЬ: конкатенация пользовательского ввода в SQL-запрос
+            var query = "SELECT * FROM Movies WHERE Title = '" + title + "'";
+            using var command = new SqlCommand(query, connection);
+
+            connection.Open();
+            using var reader = command.ExecuteReader();
+
+            var results = new List<string>();
+            while (reader.Read())
+            {
+                results.Add(reader["Title"]?.ToString() ?? "");
+            }
+            return Ok(results);
         }
     }
 }
