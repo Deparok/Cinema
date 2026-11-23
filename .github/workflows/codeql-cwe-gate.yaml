@@ -2,9 +2,9 @@ name: CodeQL Security Gate (CWE)
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ cwe-test, master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ cwe-test, master ]
 
 jobs:
   codeql-security-gate:
