@@ -42,43 +42,63 @@ jobs:
         run: dotnet build ./WebApplicationCinema.sln -c Release --no-restore
 
       # Запуск анализа
-      - name: Perform CodeQL Analysis
+      - name: Perform CodeQL Analysis (creates SARIF)
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:csharp"
-          
+          upload: false
+          output: ${{ github.workspace }}/codeql-results
+
+      # Загрузка SARIF 
+      - name: Upload SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: codeql-results/
+          category: codeql
+      
       # Падение сборки при наличии CWE
       - name: Security Gate (CWE check)
         if: always()
         run: |
           set -e
-
-          # CodeQL кладёт SARIF во временную папку runner
-          SARIF_FILE=$(find "${{ runner.temp }}" -name "*.sarif" -path "*codeql*" | head -n 1)
-
-          if [ -z "$SARIF_FILE" ]; then
-            echo "::warning::SARIF file not found — skipping CodeQL gate"
-            exit 0
+      
+          SARIF_FILE=$(find ./codeql-results -name "*.sarif" | head -n 1)
+      
+          # Проверка существования файла
+          if [ -z "$SARIF_FILE" ] || [ ! -f "$SARIF_FILE" ]; then
+            echo "::error::SARIF file not found in ./codeql-results — CodeQL analysis did not produce results"
+            ls -la ./codeql-results/ 2>/dev/null || true
+            exit 1
           fi
           echo "Используем SARIF: $SARIF_FILE"
-
-          COUNT=$(jq '
-            ([.runs[0].tool.driver.rules[]
-              | {key: .id, value: {
-                  tags: (.properties.tags // []),
-                  sev:  ((.properties."security-severity" // "0") | tonumber)
-                }}] | from_entries) as $rules
-            | [.runs[0].results[]
-               | select(
-                   ($rules[.ruleId].tags | map(test("external/cwe")) | any)
-                 )
-              ] | length
+      
+          # Подсчет CWE
+          COUNT=$(jq -r '
+            try (
+              (.runs[0] // {}) as $run
+              | ([ ($run.tool.driver.rules // [])[]?
+                   | {key: .id, value: {
+                       tags: (.properties.tags // []),
+                       sev:  ((.properties."security-severity" // "0") | tonumber)
+                     }}
+                 ] | from_entries) as $rules
+              | [ ($run.results // [])[]
+                  | .ruleId as $rid
+                  | ($rules[$rid] // {tags: [], sev: 0}) as $r
+                  | select(
+                      (($r.tags // []) | map(test("external/cwe")) | any)
+                      or
+                      (($r.sev  // 0) >= 7.0)
+                    )
+                ] | length
+            ) catch 0
           ' "$SARIF_FILE")
-
+      
           echo "Найдено критических CWE: $COUNT"
-
+      
           if [ "$COUNT" -gt 0 ]; then
-            echo "::error::Security Gate FAILED: CodeQL обнаружил $COUNT CWE"
+            echo "::error::Security Gate FAILED: CodeQL обнаружил $COUNT находок с CWE или CVSS >= 7.0"
             exit 1
           fi
           echo "Security Gate PASSED: CWE не обнаружено."
