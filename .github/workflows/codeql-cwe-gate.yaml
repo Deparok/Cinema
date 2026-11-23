@@ -72,6 +72,11 @@ jobs:
             exit 1
           fi
           echo "Используем SARIF: $SARIF_FILE"
+
+          echo "results: $(jq '.runs[0].results | length' "$SARIF_FILE" 2>/dev/null || echo '?')"
+          echo "rules с CWE: $(jq '[.runs[0].tool.driver.rules[]? | select(.properties.tags // [] | map(test("external/cwe")) | any) | .id] | length' "$SARIF_FILE" 2>/dev/null || echo '?')"
+          echo "сообщения первых результатов:"
+          jq -r '.runs[0].results[]? | "\(.ruleId): \(.message.text)"' "$SARIF_FILE" 2>/dev/null | head -n 10 || true
       
           # Подсчет CWE
           COUNT=$(jq -r '
