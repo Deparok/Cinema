@@ -58,6 +58,7 @@ jobs:
           category: codeql
       
       # Падение сборки при наличии CWE
+      
       - name: Security Gate (CWE check)
         if: always()
         run: |
@@ -65,7 +66,6 @@ jobs:
       
           SARIF_FILE=$(find ./codeql-results -name "*.sarif" -print -quit)
       
-          # Проверка SARIF
           if [ -z "$SARIF_FILE" ] || [ ! -f "$SARIF_FILE" ]; then
             echo "::error::SARIF file not found"
             exit 1
@@ -73,24 +73,39 @@ jobs:
       
           echo "Используем SARIF: $SARIF_FILE"
       
-          # Подсчет CWE
           COUNT=$(jq '
             [
-              .runs[].results[]?
+              .runs[] as $run
+              | (
+                  ($run.tool.driver.rules // []) +
+                  [$run.tool.extensions[]?.rules[]?]
+                ) as $rules
+      
+              | $run.results[]? as $result
+      
+              | (
+                  [$rules[] | select(.id == $result.ruleId)][0] // {}
+                ) as $rule
+      
               | select(
                   (
-                    [.properties.tags[]?] +
-                    [.message.text // ""] +
-                    [.ruleId // ""]
+                    [
+                      ($rule.properties.tags // [])[],
+                      ($result.properties.tags // [])[]
+                    ]
+                    | any(test("external/cwe|CWE-[0-9]+"; "i"))
                   )
-                  | any(test("external/cwe|CWE-[0-9]+"; "i"))
+                  or
+                  (($result.message.text // "") | test("CWE-[0-9]+"; "i"))
+                  or
+                  (($result.ruleId // "") | test("CWE-[0-9]+"; "i"))
                 )
-            ] | length
+            ]
+            | length
           ' "$SARIF_FILE")
       
           echo "Найдено CWE: $COUNT"
       
-          # Security Gate
           if [ "$COUNT" -gt 0 ]; then
             echo "::error::Security Gate FAILED: обнаружено $COUNT CWE"
             exit 1
