@@ -43,19 +43,28 @@ jobs:
 
       # Запуск анализа
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        run: |
+          codeql database create ./codeql-db --language=csharp \
+            --command="dotnet build ./WebApplicationCinema.sln -c Release --no-restore"
+          codeql database analyze ./codeql-db codeql/csharp-security-and-quality.qls \
+            --format=sarif-latest --output=./codeql-results.sarif
+
+      # Загрузка SARIF 
+      - name: Upload SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          category: "/language:csharp"
-          
+          sarif_file: ./codeql-results.sarif
+          category: codeql
+      
       # Падение сборки при наличии CWE
       - name: Security Gate (CWE check)
         if: always()
         run: |
           set -e
-
-          # CodeQL кладёт SARIF во временную папку runner
-          SARIF_FILE=$(find "${{ runner.temp }}" -name "*.sarif" -path "*codeql*" | head -n 1)
-
+          
+          SARIF_FILE=./codeql-results.sarif
+          
           if [ -z "$SARIF_FILE" ]; then
             echo "::warning::SARIF file not found — skipping CodeQL gate"
             exit 0
