@@ -1,0 +1,84 @@
+name: CodeQL Security Gate (CWE)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  codeql-security-gate:
+    runs-on: ubuntu-latest
+
+    # Явное указание разрешений
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      # Клонирование кода
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Установка .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0'
+
+      # Инициализация CodeQL
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: csharp
+          queries: security-and-quality
+          
+      # Сборка проекта
+      - name: Restore dependencies
+        run: dotnet restore ./WebApplicationCinema.sln
+
+      - name: Build project
+        run: dotnet build ./WebApplicationCinema.sln -c Release --no-restore
+
+      # Запуск анализа
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:csharp"
+          
+      # Падение сборки при наличии CWE
+      - name: Security Gate (CWE check)
+        if: always()
+        run: |
+          set -e
+
+          # CodeQL кладёт SARIF во временную папку runner
+          SARIF_FILE=$(find "${{ runner.temp }}" -name "*.sarif" -path "*codeql*" | head -n 1)
+
+          if [ -z "$SARIF_FILE" ]; then
+            echo "::warning::SARIF file not found — skipping CodeQL gate"
+            exit 0
+          fi
+          echo "Используем SARIF: $SARIF_FILE"
+
+          COUNT=$(jq '
+            ([.runs[0].tool.driver.rules[]
+              | {key: .id, value: {
+                  tags: (.properties.tags // []),
+                  sev:  ((.properties."security-severity" // "0") | tonumber)
+                }}] | from_entries) as $rules
+            | [.runs[0].results[]
+               | select(
+                   ($rules[.ruleId].tags | map(test("external/cwe")) | any)
+                 )
+              ] | length
+          ' "$SARIF_FILE")
+
+          echo "Найдено критических CWE: $COUNT"
+
+          if [ "$COUNT" -gt 0 ]; then
+            echo "::error::Security Gate FAILED: CodeQL обнаружил $COUNT CWE"
+            exit 1
+          fi
+          echo "Security Gate PASSED: CWE не обнаружено."
