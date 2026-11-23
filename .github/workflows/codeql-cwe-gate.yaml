@@ -79,40 +79,56 @@ jobs:
           jq -r '.runs[0].results[]? | "\(.ruleId): \(.message.text)"' "$SARIF_FILE" 2>/dev/null | head -n 10 || true
       
           # Подсчет CWE
+          
           COUNT=$(jq -r '
             try (
               .runs[0] as $run
-              # Сбор правил из всех мест
-              | ([ (($run.tool.driver.rules // [])[]
-                    | {key: .id, value: {
-                        tags: (.properties.tags // []),
-                        sev:  ((.properties."security-severity" // "0") | tonumber)
-                      }}),
-                   (($run.tool.extensions // [])[]?
-                    | (.rules // [])[]
-                    | {key: .id, value: {
-                        tags: (.properties.tags // []),
-                        sev:  ((.properties."security-severity" // "0") | tonumber)
-                      }})
-                 ] | from_entries) as $rules
-      
-              | [ ($run.results // [])[]
+          
+              | (
+                  [
+                    (($run.tool.driver.rules // [])[]
+                      | {
+                          key: .id,
+                          value: {
+                            tags: (.properties.tags // []),
+                            sev: ((.properties."security-severity" // "0") | tonumber)
+                          }
+                        }
+                    ),
+                    (($run.tool.extensions // [])[]?
+                      | (.rules // [])[]
+                      | {
+                          key: .id,
+                          value: {
+                            tags: (.properties.tags // []),
+                            sev: ((.properties."security-severity" // "0") | tonumber)
+                          }
+                        }
+                    )
+                  ] | from_entries
+                ) as $rules
+          
+              | [
+                  ($run.results // [])[]
                   | . as $res
                   | .ruleId as $rid
                   | ($rules[$rid] // {tags: [], sev: 0}) as $r
-      
-                  # Просмотр всех признаков CWE
-                  | ( (($r.tags // []) | map(test("external/cwe|cwe-"; "i")) | any)
+          
+                  | (
+                      (($r.tags // []) | map(test("external/cwe|cwe-"; "i")) | any)
                       or
                       (($res.properties.tags // []) | map(test("external/cwe|cwe-"; "i")) | any)
                       or
                       (($res.message.text // "") | test("CWE-[0-9]+"; "i"))
                       or
                       (($rid // "") | test("cwe"; "i"))
-                    ) as $has_cwe
-                ] | length
+                    )
+                  | select(. == true)
+                ]
+              | length
             ) catch 0
           ' "$SARIF_FILE")
+
       
           echo "Найдено критических CWE: $COUNT"
       
