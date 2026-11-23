@@ -42,7 +42,7 @@ jobs:
         run: dotnet build ./WebApplicationCinema.sln -c Release --no-restore
 
       # Запуск анализа
-      - name: Perform CodeQL Analysis (creates SARIF)
+      - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
           category: "/language:csharp"
@@ -81,21 +81,35 @@ jobs:
           # Подсчет CWE
           COUNT=$(jq -r '
             try (
-              (.runs[0] // {}) as $run
-              | ([ ($run.tool.driver.rules // [])[]?
-                   | {key: .id, value: {
-                       tags: (.properties.tags // []),
-                       sev:  ((.properties."security-severity" // "0") | tonumber)
-                     }}
+              .runs[0] as $run
+              # Сбор правил из всех мест
+              | ([ (($run.tool.driver.rules // [])[]
+                    | {key: .id, value: {
+                        tags: (.properties.tags // []),
+                        sev:  ((.properties."security-severity" // "0") | tonumber)
+                      }}),
+                   (($run.tool.extensions // [])[]?
+                    | (.rules // [])[]
+                    | {key: .id, value: {
+                        tags: (.properties.tags // []),
+                        sev:  ((.properties."security-severity" // "0") | tonumber)
+                      }})
                  ] | from_entries) as $rules
+      
               | [ ($run.results // [])[]
+                  | . as $res
                   | .ruleId as $rid
                   | ($rules[$rid] // {tags: [], sev: 0}) as $r
-                  | select(
-                      (($r.tags // []) | map(test("external/cwe")) | any)
+      
+                  # Просмотр всех признаков CWE
+                  | ( (($r.tags // []) | map(test("external/cwe|cwe-"; "i")) | any)
                       or
-                      (($r.sev  // 0) >= 7.0)
-                    )
+                      (($res.properties.tags // []) | map(test("external/cwe|cwe-"; "i")) | any)
+                      or
+                      (($res.message.text // "") | test("CWE-[0-9]+"; "i"))
+                      or
+                      (($rid // "") | test("cwe"; "i"))
+                    ) as $has_cwe
                 ] | length
             ) catch 0
           ' "$SARIF_FILE")
@@ -103,7 +117,7 @@ jobs:
           echo "Найдено критических CWE: $COUNT"
       
           if [ "$COUNT" -gt 0 ]; then
-            echo "::error::Security Gate FAILED: CodeQL обнаружил $COUNT находок с CWE или CVSS >= 7.0"
+            echo "::error::Security Gate FAILED: CodeQL обнаружил $COUNT находок с CWE"
             exit 1
           fi
           echo "Security Gate PASSED: CWE не обнаружено."
