@@ -54,7 +54,7 @@ jobs:
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: ./codeql-results.sarif
+          sarif_file: codeql-results/
           category: codeql
       
       # Падение сборки при наличии CWE
