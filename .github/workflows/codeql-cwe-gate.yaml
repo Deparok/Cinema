@@ -42,12 +42,12 @@ jobs:
         run: dotnet build ./WebApplicationCinema.sln -c Release --no-restore
 
       # Запуск анализа
-      - name: Perform CodeQL Analysis
-        run: |
-          codeql database create ./codeql-db --language=csharp \
-            --command="dotnet build ./WebApplicationCinema.sln -c Release --no-restore"
-          codeql database analyze ./codeql-db codeql/csharp-security-and-quality.qls \
-            --format=sarif-latest --output=./codeql-results.sarif
+      - name: Perform CodeQL Analysis (creates SARIF)
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:csharp"
+          upload: false
+          output: ${{ github.workspace }}/codeql-results
 
       # Загрузка SARIF 
       - name: Upload SARIF to Code Scanning
@@ -63,7 +63,7 @@ jobs:
         run: |
           set -e
           
-          SARIF_FILE=./codeql-results.sarif
+          SARIF_FILE=$(find ./codeql-results -name "*.sarif" | head -n 1)
           
           if [ -z "$SARIF_FILE" ]; then
             echo "::warning::SARIF file not found — skipping CodeQL gate"
