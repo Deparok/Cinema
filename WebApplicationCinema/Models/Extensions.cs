@@ -1,4 +1,4 @@
-﻿namespace WebApplicationCinema.Models
+namespace WebApplicationCinema.Models
 {
     public static class Extensions
     {
@@ -22,7 +22,10 @@
 
         public static string ToSqlString(this DateOnly? date)
         {
-            return $"{date.Value.Year}-{date.Value.Month}-{date.Value.Day}";
+            if (date is null)
+                throw new ArgumentNullException(nameof(date));
+
+            return date.Value.ToSqlString();
         }
     }
 }

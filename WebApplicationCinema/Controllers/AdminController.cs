@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using System.Data;
 using System.Threading.Tasks;
 using WebApplicationCinema.Models;
 using WebApplicationCinema.Models.DBInstances;
@@ -70,14 +72,19 @@ namespace WebApplicationCinema.Controllers
         [HttpPost]
         public async Task<IActionResult> AddHall(string? chall_name, uint? chall_capacity, uint? chall_rows, string? chall_transfer, string? chall_description)
         {
-            if (chall_name is null || chall_capacity is null || chall_rows is null || chall_transfer is null)
+            if (string.IsNullOrWhiteSpace(chall_name) || chall_capacity is null ||
+                chall_rows is null || chall_rows == 0 || chall_transfer is null)
                 return BadRequest();
             if (chall_transfer != "front" && chall_transfer != "back")
                 return BadRequest();
             await _db.ExecuteProcedureAsync("CreateHall", chall_name, chall_description ?? "NULL");
-            Hall insertedHall = (await _db.ExecuteQueryAsync<Hall>($"SELECT * FROM Halls WHERE [Name]={chall_name}")).First();
-            uint columns = chall_capacity ?? 0 / chall_rows ?? 1;
-            uint remaining = chall_capacity ?? 0 - (columns * chall_rows ?? 1);
+            Hall insertedHall = (await _db.ExecuteQueryAsync<Hall>(
+                "SELECT * FROM Halls WHERE [Name] = @name",
+                new SqlParameter("@name", SqlDbType.NVarChar, 255) { Value = chall_name }
+            )).First();
+
+            uint columns = chall_capacity.Value / chall_rows.Value;
+            uint remaining = chall_capacity.Value % chall_rows.Value;
             int j = 1;
             int start = 1;
 
@@ -119,7 +126,7 @@ namespace WebApplicationCinema.Controllers
         {
             if (session_date is null || session_halls is null || session_movies is null || session_start is null || session_end is null)
                 return BadRequest();
-            await _db.ExecuteProcedureAsync("CreateSession", session_date.ToSqlString(), session_halls.ToString()!, session_movies.ToString()!, session_start?.ToShortTimeString()!, session_end?.ToShortTimeString()!, session_extracharge?.ToString() ?? "0");
+            await _db.ExecuteProcedureAsync("CreateSession", session_date.Value.ToSqlString(), session_halls.Value.ToString(), session_movies.Value.ToString(), session_start.Value.ToShortTimeString(), session_end.Value.ToShortTimeString(), session_extracharge?.ToString() ?? "0");
             return LocalRedirect(Request.Path);
         }
 

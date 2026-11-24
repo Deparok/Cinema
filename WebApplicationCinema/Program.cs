@@ -14,7 +14,6 @@ namespace WebApplicationCinema
             var builder = WebApplication.CreateBuilder(args);
 
             IConfigurationSection sql = builder.Configuration.GetSection("SqlConnection");
-            var sqlUser = sql.GetSection("User");
             var sqlAdmin = sql.GetSection("Admin");
 
             //MSSQLConnector user = new MSSQLConnector(sql.GetValue<string>("Ip"), sql.GetValue<string>("DataBase"), sqlUser.GetValue<string>("Login"), sqlUser.GetValue<string>("Password"));
@@ -25,13 +24,13 @@ namespace WebApplicationCinema
 
             //if (!user.Connect())
             //{
-            //    Console.WriteLine("Невозможно открыть подключение (от имени пользователя) к базе данных!");
+            //    Console.WriteLine("РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ РїРѕРґРєР»СЋС‡РµРЅРёРµ (РѕС‚ РёРјРµРЅРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ) Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С…!");
             //    return;
             //}
 
             //if (!admin.Connect())
             //{
-            //    Console.WriteLine("Невозможно открыть подключение (от имени администратора) к базе данных!");
+            //    Console.WriteLine("РќРµРІРѕР·РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ РїРѕРґРєР»СЋС‡РµРЅРёРµ (РѕС‚ РёРјРµРЅРё Р°РґРјРёРЅРёСЃС‚СЂР°С‚РѕСЂР°) Рє Р±Р°Р·Рµ РґР°РЅРЅС‹С…!");
             //    return;
             //}
 
@@ -43,7 +42,7 @@ namespace WebApplicationCinema
 
             PasswordHasher<string> hasher = new PasswordHasher<string>();
 
-            PdfFormer pdf = new PdfFormer("Кинотеатр Эверест");
+            PdfFormer pdf = new PdfFormer("РљРёРЅРѕС‚РµР°С‚СЂ Р­РІРµСЂРµСЃС‚");
 
             builder.Services.AddKeyedSingleton<IAsyncDBWorker, MSSQLConnector>("user", (provider, key) => admin);
             builder.Services.AddKeyedSingleton<IAsyncDBWorker, MSSQLConnector>("admin", (provider, key) => admin);

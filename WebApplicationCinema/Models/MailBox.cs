@@ -1,4 +1,4 @@
-﻿using System.Net;
+using System.Net;
 using System.Net.Mail;
 
 namespace WebApplicationCinema.Models
@@ -27,7 +27,7 @@ namespace WebApplicationCinema.Models
                 string address = new MailAddress(email).Address;
                 return address == email.Trim();
             }
-            catch
+            catch (FormatException)
             {
                 return false;
             }
@@ -35,7 +35,7 @@ namespace WebApplicationCinema.Models
 
         public bool Send(string emailTo, string subject, string body, List<Attachment> attachments)
         {
-            MailMessage mail = new MailMessage(_emailFrom, emailTo, subject, body);
+            using var mail = new MailMessage(_emailFrom, emailTo, subject, body);
             foreach (Attachment attachment in attachments)
                 mail.Attachments.Add(attachment);
 
@@ -52,8 +52,9 @@ namespace WebApplicationCinema.Models
                     smtp.Send(mail);
                     return true;
                 }
-                catch
+                catch (SmtpException ex)
                 {
+                    Console.Error.WriteLine($"Email delivery failed: {ex.Message}");
                     return false;
                 }
             }
@@ -66,7 +67,7 @@ namespace WebApplicationCinema.Models
 
         public async Task<bool> SendAsync(string emailTo, string subject, string body, List<Attachment> attachments)
         {
-            MailMessage mail = new MailMessage(_emailFrom, emailTo, subject, body);
+            using var mail = new MailMessage(_emailFrom, emailTo, subject, body);
             foreach (Attachment attachment in attachments)
                 mail.Attachments.Add(attachment);
 
@@ -82,9 +83,9 @@ namespace WebApplicationCinema.Models
                     await smtp.SendMailAsync(mail);
                     return true;
                 }
-                catch (Exception ex)
+                catch (SmtpException ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.Error.WriteLine($"Email delivery failed: {ex.Message}");
                     return false;
                 }
             }

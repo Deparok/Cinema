@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -32,9 +32,6 @@ namespace WebApplicationCinema.Controllers
 
             int userId = int.Parse(User.Claims.Where(claim => claim.Type == ClaimTypes.Sid).First().Value);
             List<Ticket> tickets = await _db.ExecuteProcedureAsync<Ticket>("GetTicketsByUser", userId.ToString());
-            List<Seat> seats = new List<Seat>();
-            foreach (Ticket ticket in tickets)
-                seats.Add((await _db.ExecuteQueryAsync<Seat>($"SELECT * FROM Seats WHERE ID={ticket.Seat}")).First());
 
             //List<TicketNSeatModel> ticketsNSeats = new List<TicketNSeatModel>();
             //foreach ((Ticket ticket, Seat seat) tsTuple in )

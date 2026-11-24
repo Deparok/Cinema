@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.ComponentModel;
 using System.Data;
@@ -6,6 +6,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.Pkcs;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static Azure.Core.HttpHeader;
 
@@ -82,6 +83,7 @@ namespace WebApplicationCinema.Models
         private bool _executing = false;
         private bool _autoReconnect = false;
         private bool _standartClosure = false;
+        private readonly object _disposeLock = new();
 
         private void _connector_StateChanged(object sender, StateChangeEventArgs e)
         {
@@ -133,9 +135,9 @@ namespace WebApplicationCinema.Models
                 _connector.Open();
                 result = true;
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
-                //Console.WriteLine(ex.Message);
+                Console.Error.WriteLine($"Database connection failed: {ex.Message}");
                 result = false;
             }
             OnConnected?.Invoke(this, result);
@@ -162,8 +164,9 @@ namespace WebApplicationCinema.Models
                 _connector.Open();
                 return true;
             }
-            catch
+            catch (SqlException ex)
             {
+                Console.Error.WriteLine($"Database reconnection failed: {ex.Message}");
                 return false;
             }
             //finally
@@ -196,8 +199,9 @@ namespace WebApplicationCinema.Models
                 await _connector.OpenAsync();
                 result = true;
             }
-            catch
+            catch (SqlException ex)
             {
+                Console.Error.WriteLine($"Database connection failed: {ex.Message}");
                 result = false;
             }
             OnConnected?.Invoke(this, result);
@@ -238,13 +242,12 @@ namespace WebApplicationCinema.Models
             if (reader is null) 
                 return null;
 
-            bool validConstructor = true;
             foreach (ConstructorInfo constructor in typeof(T).GetConstructors())
             {
+                bool validConstructor = true;
                 ParameterInfo[] parameters = constructor.GetParameters();
                 if (parameters.Length != reader.FieldCount)
                     continue;
-                validConstructor = true;
                 //Type fieldType;
                 //Type n = typeof(int);
                 //Type u = typeof(ConstructorInfo);
@@ -261,19 +264,16 @@ namespace WebApplicationCinema.Models
 
         public SqlDataReader ExecuteQuery(string query)
         {
-            //CheckEverythingOkSleepIfNotThenExecute();
             if (!_reader?.IsClosed ?? false)
                 _reader.Close();
+
+            _command.Parameters.Clear();
+            _command.CommandType = CommandType.Text;
             _command.CommandText = query;
-            SqlDataReader reader = null;
-            try
-            {
-                reader = _command.ExecuteReader();
-            }
-            catch { }
+
+            SqlDataReader reader = _command.ExecuteReader();
             _reader = reader;
             OnQueryExecuted?.Invoke(this, reader);
-            //ExecutionCompleted();
             return reader;
         }
 
@@ -284,20 +284,33 @@ namespace WebApplicationCinema.Models
 
         public async Task<SqlDataReader> ExecuteQueryAsync(string query)
         {
-            //CheckEverythingOkSleepIfNotThenExecute();
             if (!_reader?.IsClosed ?? false)
                 _reader.Close();
+
+            _command.Parameters.Clear();
+            _command.CommandType = CommandType.Text;
             _command.CommandText = query;
-            SqlDataReader reader = null;
-            try
-            {
-                reader = await _command.ExecuteReaderAsync();
-            }
-            catch { }
+
+            SqlDataReader reader = await _command.ExecuteReaderAsync();
             _reader = reader;
             OnQueryExecuted?.Invoke(this, reader);
-            //ExecutionCompleted();
             return reader;
+        }
+
+        public async Task<List<T>> ExecuteQueryAsync<T>(string query, params SqlParameter[] parameters)
+        {
+            if (!_reader?.IsClosed ?? false)
+                _reader.Close();
+
+            _command.Parameters.Clear();
+            _command.CommandType = CommandType.Text;
+            _command.CommandText = query;
+            _command.Parameters.AddRange(parameters);
+
+            SqlDataReader reader = await _command.ExecuteReaderAsync();
+            _reader = reader;
+            OnQueryExecuted?.Invoke(this, reader);
+            return MapFromReader<T>(reader) ?? new List<T>();
         }
 
         public async Task<List<T>> ExecuteQueryAsync<T>(string query)
@@ -328,19 +341,40 @@ namespace WebApplicationCinema.Models
             // CreateSession(@Date DATE, @HallID INT, @MovieID INT, @StartTime TIME, @EndTime TIME, @Overprice MONEY NULL) 0 or -1
 
 
-            StringBuilder sb = new StringBuilder();
+            if (!Regex.IsMatch(name, @"^[A-Za-z_][A-Za-z0-9_]*(\.[A-Za-z_][A-Za-z0-9_]*)?$"))
+                throw new ArgumentException("Invalid stored procedure name.", nameof(name));
 
-            //Console.WriteLine($"{"N'" + String.Join("', N'", parameters)}" + "'");
-            try
+            if (!_reader?.IsClosed ?? false)
+                _reader.Close();
+
+            _command.Parameters.Clear();
+            _command.CommandType = CommandType.Text;
+
+            string[] parameterNames = parameters
+                .Select((_, index) => $"@p{index}")
+                .ToArray();
+
+            string procedureName = string.Join(".", name.Split('.').Select(part => $"[{part}]"));
+            _command.CommandText = parameterNames.Length == 0
+                ? $"EXEC {procedureName}"
+                : $"EXEC {procedureName} {string.Join(", ", parameterNames)}";
+
+            for (int i = 0; i < parameters.Length; i++)
             {
-                if (!(parameters is null))
-                    return ExecuteQuery($"EXEC {name} {"N'" + String.Join("', N'", parameters)}" + "'");
-                return ExecuteQuery($"EXEC {name}");
+                object value = string.Equals(parameters[i], "NULL", StringComparison.OrdinalIgnoreCase)
+                    ? DBNull.Value
+                    : parameters[i];
+
+                _command.Parameters.Add(new SqlParameter(parameterNames[i], SqlDbType.NVarChar, -1)
+                {
+                    Value = value
+                });
             }
-            catch 
-            {
-                return _reader;
-            }
+
+            SqlDataReader reader = _command.ExecuteReader();
+            _reader = reader;
+            OnQueryExecuted?.Invoke(this, reader);
+            return reader;
         }
 
         public List<T> ExecuteProcedure<T>(string name, params string[] parameters)
@@ -372,7 +406,7 @@ namespace WebApplicationCinema.Models
 
         public void Dispose()
         {
-            lock(this)
+            lock (_disposeLock)
             {
                 _standartClosure = true;
                 _connector?.Close();

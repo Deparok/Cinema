@@ -1,4 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Net;
 
 namespace WebApplicationCinema.Models
@@ -22,6 +22,8 @@ namespace WebApplicationCinema.Models
         Task<SqlDataReader> ExecuteQueryAsync(string query);
 
         Task<List<T>> ExecuteQueryAsync<T>(string query);
+
+        Task<List<T>> ExecuteQueryAsync<T>(string query, params SqlParameter[] parameters);
 
         Task<SqlDataReader> ExecuteProcedureAsync(string name, params string[] parameters);
 
